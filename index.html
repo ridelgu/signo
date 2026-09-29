@@ -1,50 +1,50 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
 
 <title>Recta de signos → TikZ</title>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&display=swap">
+<!-- Fuente de la interfaz -->
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&display=swap"
+>
 
-<!-- =======================================================
-     MATHJAX
-     ======================================================= -->
-
-<script>
-window.MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']]
-  },
-  svg: {
-    fontCache: 'none'
-  }
-};
-</script>
-
-<script
-  defer
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-</script>
+<!-- Fuentes matemáticas estilo LaTeX / Computer Modern -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+>
 
 
 <style>
 
 :root{
+
   box-sizing:border-box;
+
   padding-top:env(safe-area-inset-top,0px);
+
   padding-bottom:env(safe-area-inset-bottom,0px);
 
   --bg:#eef1f7;
-  --card:#fff;
-  --ink:#1f2a8a;
+  --card:#ffffff;
   --text:#1d2233;
   --mute:#5d6580;
   --line:#cfd5e6;
   --acc:#1f2a8a;
-  --accfg:#fff;
+  --accfg:#ffffff;
+
 }
+
 
 @media (prefers-color-scheme:dark){
 
@@ -52,216 +52,350 @@ window.MathJax = {
 
     --bg:#12152a;
     --card:#1a1f3a;
-    --ink:#a9b6ff;
     --text:#e6e9f7;
     --mute:#98a0c4;
     --line:#2e3560;
     --acc:#a9b6ff;
     --accfg:#12152a;
+
   }
+
 }
 
-:root[data-theme="dark"]{
-
-  --bg:#12152a;
-  --card:#1a1f3a;
-  --ink:#a9b6ff;
-  --text:#e6e9f7;
-  --mute:#98a0c4;
-  --line:#2e3560;
-  --acc:#a9b6ff;
-  --accfg:#12152a;
-}
-
-html{
-  scroll-padding-top:env(safe-area-inset-top,0px);
-}
 
 *,
 *::before,
 *::after{
+
   box-sizing:inherit;
+
 }
+
 
 body{
+
   margin:0;
+
   background:var(--bg);
+
   color:var(--text);
+
   font:16px/1.5 Figtree,system-ui,sans-serif;
+
 }
+
 
 main{
+
   max-width:1000px;
+
   margin:0 auto;
+
   padding:20px 16px 40px;
+
   display:grid;
+
   gap:16px;
+
 }
+
 
 h1{
+
   font-size:1.5rem;
+
   margin:0;
+
 }
+
 
 p.sub{
+
   margin:0;
+
   color:var(--mute);
+
 }
+
 
 section{
+
   background:var(--card);
+
   border:1px solid var(--line);
+
   border-radius:10px;
+
   padding:16px;
+
 }
+
 
 h2{
+
   font-size:1rem;
+
   margin:0 0 10px;
+
 }
 
+
 label{
+
   display:block;
+
   font-weight:600;
+
   margin-bottom:4px;
+
 }
+
 
 input[type=text],
 select{
+
   width:100%;
+
   padding:8px 10px;
+
   border:1px solid var(--line);
+
   border-radius:6px;
+
   background:var(--bg);
+
   color:var(--text);
+
   font:inherit;
+
 }
+
 
 input:focus-visible,
 select:focus-visible,
 button:focus-visible{
+
   outline:2px solid var(--acc);
+
   outline-offset:2px;
+
 }
+
 
 .hint{
+
   color:var(--mute);
+
   font-size:.875rem;
+
   margin-top:4px;
+
 }
+
 
 .grid{
+
   display:grid;
+
   gap:10px;
-  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(230px,1fr)
+    );
+
 }
+
 
 .cell{
+
   border:1px solid var(--line);
+
   border-radius:6px;
+
   padding:8px 10px;
+
   display:grid;
+
   gap:6px;
+
 }
+
 
 .cell b{
+
   font-weight:600;
+
 }
+
 
 .seg{
+
   display:flex;
+
   gap:4px;
+
 }
+
 
 .seg button{
+
   flex:1;
+
   padding:6px 0;
+
   border:1px solid var(--line);
+
   background:var(--bg);
+
   color:var(--text);
+
   border-radius:6px;
+
   font:inherit;
+
   cursor:pointer;
+
 }
+
 
 .seg button[aria-pressed=true]{
+
   background:var(--acc);
+
   color:var(--accfg);
+
   border-color:var(--acc);
+
 }
+
 
 .prev{
+
   overflow-x:auto;
+
 }
+
 
 svg{
+
   display:block;
+
   margin:0 auto;
+
   max-width:none;
+
   color:var(--text);
+
 }
+
 
 textarea{
+
   width:100%;
+
   min-height:200px;
+
   padding:10px;
+
   border:1px solid var(--line);
+
   border-radius:6px;
+
   background:var(--bg);
+
   color:var(--text);
+
   font:13px/1.5 ui-monospace,Consolas,monospace;
+
   resize:vertical;
+
 }
+
 
 .row{
+
   display:flex;
+
   gap:12px;
+
   align-items:center;
+
   flex-wrap:wrap;
+
   margin-top:8px;
+
 }
+
 
 .row label{
+
   display:inline-flex;
+
   gap:6px;
+
   align-items:center;
+
   font-weight:400;
+
   margin:0;
+
 }
+
 
 .btn{
+
   padding:8px 16px;
+
   border:0;
+
   border-radius:6px;
+
   background:var(--acc);
+
   color:var(--accfg);
+
   font:inherit;
+
   font-weight:600;
+
   cursor:pointer;
+
 }
 
+
 .err{
+
   color:#c0392b;
+
   font-size:.9rem;
+
 }
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <main>
 
+
   <div>
 
-    <h1>Recta de signos</h1>
+    <h1>
+      Recta de signos
+    </h1>
 
     <p class="sub">
       Cargá los números y los signos; obtenés la vista previa y el código TikZ.
     </p>
 
   </div>
+
 
 
   <!-- =====================================================
@@ -283,9 +417,12 @@ textarea{
     >
 
     <div class="hint">
+
       Separados por espacio o “;”.
-      Podés usar enteros, decimales (0,5) o fracciones (-3/2).
+      Podés usar enteros, decimales (0,5)
+      o fracciones (-3/2).
       Se ordenan solos.
+
     </div>
 
     <div
@@ -297,8 +434,9 @@ textarea{
   </section>
 
 
+
   <!-- =====================================================
-       EXPRESIÓN DEL SIGNO
+       SIGNO DE...
        ===================================================== -->
 
   <section>
@@ -316,16 +454,21 @@ textarea{
     >
 
     <div class="hint">
-      Escribí LaTeX sin los signos $.
+
       Ejemplos:
+      f,
       f',
+      f'',
       g(x),
-      f_1',
-      h'',
-      \frac{f}{g}
+      h(x).
+
+      En el código TikZ se conserva exactamente
+      la expresión ingresada.
+
     </div>
 
   </section>
+
 
 
   <!-- =====================================================
@@ -346,6 +489,7 @@ textarea{
   </section>
 
 
+
   <!-- =====================================================
        PUNTOS
        ===================================================== -->
@@ -364,6 +508,7 @@ textarea{
   </section>
 
 
+
   <!-- =====================================================
        VISTA PREVIA
        ===================================================== -->
@@ -379,10 +524,8 @@ textarea{
       id="prev"
     ></div>
 
-    <div
-      class="row"
-      id="dl"
-    >
+
+    <div class="row">
 
       <button
         class="btn"
@@ -391,12 +534,14 @@ textarea{
         Descargar PNG
       </button>
 
+
       <button
         class="btn"
         id="dlsvg"
       >
         Descargar SVG
       </button>
+
 
       <span
         class="hint"
@@ -409,8 +554,9 @@ textarea{
   </section>
 
 
+
   <!-- =====================================================
-       LATEX
+       CÓDIGO LATEX
        ===================================================== -->
 
   <section>
@@ -419,11 +565,13 @@ textarea{
       Código LaTeX
     </h2>
 
+
     <textarea
       id="code"
       readonly
       aria-label="Código TikZ"
     ></textarea>
+
 
     <div class="row">
 
@@ -433,6 +581,7 @@ textarea{
       >
         Copiar código
       </button>
+
 
       <label>
 
@@ -445,6 +594,7 @@ textarea{
 
       </label>
 
+
       <span
         class="hint"
         id="msg"
@@ -453,23 +603,34 @@ textarea{
 
     </div>
 
+
     <div class="hint">
+
       Necesita los paquetes
       <code>tikz</code>
       y
       <code>amssymb</code>.
+
     </div>
 
   </section>
 
+
 </main>
+
 
 
 <script>
 
+
+/* =========================================================
+   ATAJO DOM
+   ========================================================= */
+
 const $ =
   id =>
     document.getElementById(id);
+
 
 
 /* =========================================================
@@ -489,6 +650,7 @@ const TOPS = [
 ];
 
 
+
 let pts = [];
 
 let signs = [];
@@ -496,6 +658,109 @@ let signs = [];
 let tops = [];
 
 let lastSvg = null;
+
+
+
+/* =========================================================
+   FUENTES
+   ========================================================= */
+
+/*
+   KaTeX_Main:
+   números, signos, paréntesis, operadores.
+
+   KaTeX_Math:
+   variables matemáticas en cursiva:
+   f, g, x, etc.
+*/
+
+const MATH_MAIN =
+  "'KaTeX_Main','Latin Modern Roman','CMU Serif','Times New Roman',serif";
+
+
+const MATH_ITALIC =
+  "'KaTeX_Math','Latin Modern Math','CMU Serif','Times New Roman',serif";
+
+
+
+/* =========================================================
+   ESCAPAR XML
+   ========================================================= */
+
+function escXml(s){
+
+  return String(s)
+
+    .replace(
+      /&/g,
+      '&amp;'
+    )
+
+    .replace(
+      /</g,
+      '&lt;'
+    )
+
+    .replace(
+      />/g,
+      '&gt;'
+    )
+
+    .replace(
+      /"/g,
+      '&quot;'
+    );
+
+}
+
+
+
+/* =========================================================
+   TEXTO PARA LA VISTA PREVIA MATEMÁTICA
+   ========================================================= */
+
+function mathPreview(s){
+
+  return String(s)
+
+    /*
+       Prima matemática:
+       f' → f′
+       f'' → f′′
+    */
+
+    .replace(
+      /'/g,
+      '′'
+    )
+
+    .replace(
+      /\\infty/g,
+      '∞'
+    )
+
+    .replace(
+      /\\nexists/g,
+      '∄'
+    )
+
+    .replace(
+      /\\cdot/g,
+      '·'
+    )
+
+    .replace(
+      /\\times/g,
+      '×'
+    )
+
+    .replace(
+      /\\pm/g,
+      '±'
+    );
+
+}
+
 
 
 /* =========================================================
@@ -511,10 +776,12 @@ function parse(){
       .filter(Boolean);
 
 
-  const out = [];
+  const out =
+    [];
 
 
   for(const t of toks){
+
 
     const m =
       t.match(
@@ -573,8 +840,10 @@ function parse(){
 
 
   out.sort(
-    (a,b) =>
+
+    (a,b)=>
       a.val-b.val
+
   );
 
 
@@ -583,13 +852,14 @@ function parse(){
 }
 
 
+
 /* =========================================================
-   TEXTO SIMPLE
+   TEXTO DE NÚMEROS PARA SVG
    ========================================================= */
 
 function disp(s){
 
-  return s
+  return String(s)
 
     .replace(
       /\\nexists/g,
@@ -614,8 +884,9 @@ function disp(s){
 }
 
 
+
 /* =========================================================
-   EXPRESIÓN SG
+   EXPRESIÓN DE SG
    ========================================================= */
 
 function leftExpr(){
@@ -627,8 +898,9 @@ function leftExpr(){
 }
 
 
+
 /* =========================================================
-   TEXTO SUPERIOR
+   TEXTO SOBRE LOS PUNTOS
    ========================================================= */
 
 function topTex(i){
@@ -646,11 +918,16 @@ function topTex(i){
 }
 
 
+
 /* =========================================================
-   BOTONES
+   BOTONES SEGMENTADOS
    ========================================================= */
 
-function seg(opts,cur,fn){
+function seg(
+  opts,
+  cur,
+  fn
+){
 
   const d =
     document.createElement(
@@ -663,6 +940,7 @@ function seg(opts,cur,fn){
 
 
   opts.forEach(
+
     ([v,l])=>{
 
       const b =
@@ -696,12 +974,14 @@ function seg(opts,cur,fn){
       );
 
     }
+
   );
 
 
   return d;
 
 }
+
 
 
 /* =========================================================
@@ -713,6 +993,11 @@ function buildControls(){
   const n =
     pts.length;
 
+
+
+/* ---------------------------------------------------------
+   INTERVALOS
+   --------------------------------------------------------- */
 
   while(signs.length < n+1){
 
@@ -733,6 +1018,11 @@ function buildControls(){
     n+1;
 
 
+
+/* ---------------------------------------------------------
+   PUNTOS
+   --------------------------------------------------------- */
+
   while(tops.length < n){
 
     tops.push({
@@ -750,8 +1040,9 @@ function buildControls(){
     n;
 
 
+
 /* =========================================================
-   INTERVALOS
+   GENERAR CONTROLES DE INTERVALOS
    ========================================================= */
 
   const S =
@@ -763,6 +1054,7 @@ function buildControls(){
 
 
   for(let k=0;k<=n;k++){
+
 
     const a =
       k === 0
@@ -841,8 +1133,9 @@ function buildControls(){
   }
 
 
+
 /* =========================================================
-   VALORES SOBRE LOS PUNTOS
+   CONTROLES SOBRE LOS PUNTOS
    ========================================================= */
 
   const T =
@@ -854,7 +1147,9 @@ function buildControls(){
 
 
   pts.forEach(
+
     (p,i)=>{
+
 
       const c =
         document.createElement(
@@ -877,7 +1172,9 @@ function buildControls(){
 
 
       TOPS.forEach(
+
         ([v,l])=>{
+
 
           const o =
             document.createElement(
@@ -906,11 +1203,13 @@ function buildControls(){
           );
 
         }
+
       );
 
 
       sel.onchange =
         ()=>{
+
 
           tops[i].v =
             sel.value;
@@ -929,7 +1228,13 @@ function buildControls(){
       );
 
 
+
+/* ---------------------------------------------------------
+   TEXTO PERSONALIZADO
+   --------------------------------------------------------- */
+
       if(tops[i].v === 'custom'){
+
 
         const inp =
           document.createElement(
@@ -951,6 +1256,7 @@ function buildControls(){
 
         inp.oninput =
           ()=>{
+
 
             tops[i].c =
               inp.value;
@@ -979,107 +1285,9 @@ function buildControls(){
 }
 
 
-/* =========================================================
-   MATHJAX → SVG INTERNO
-   ========================================================= */
-
-function mathFragment(
-  tex,
-  rightX,
-  centerY,
-  wantedHeight = 34
-){
-
-  const wrapper =
-    MathJax.tex2svg(
-      tex,
-      {
-        display:false
-      }
-    );
-
-
-  const original =
-    wrapper.querySelector(
-      'svg'
-    );
-
-
-  if(!original){
-
-    return '';
-
-  }
-
-
-  const viewBox =
-    original
-      .getAttribute('viewBox')
-      .trim()
-      .split(/\s+/)
-      .map(Number);
-
-
-  const vbX =
-    viewBox[0];
-
-  const vbY =
-    viewBox[1];
-
-  const vbW =
-    viewBox[2];
-
-  const vbH =
-    viewBox[3];
-
-
-  const ratio =
-    vbW / vbH;
-
-
-  const wantedWidth =
-    wantedHeight * ratio;
-
-
-  const x =
-    rightX - wantedWidth;
-
-
-  const y =
-    centerY - wantedHeight/2;
-
-
-  /*
-     Tomamos todo el contenido generado por MathJax:
-     paths, defs, etc.
-  */
-
-  const contenido =
-    original.innerHTML;
-
-
-  return `
-
-    <svg
-      x="${x}"
-      y="${y}"
-      width="${wantedWidth}"
-      height="${wantedHeight}"
-      viewBox="${vbX} ${vbY} ${vbW} ${vbH}"
-      overflow="visible"
-      color="currentColor">
-
-      ${contenido}
-
-    </svg>
-
-  `;
-
-}
-
 
 /* =========================================================
-   DIMENSIONES
+   DIMENSIONES DE LA RECTA
    ========================================================= */
 
 const U =
@@ -1094,24 +1302,12 @@ const DX =
   3;
 
 
+
 /* =========================================================
-   GENERAR
+   GENERAR RECTA
    ========================================================= */
 
-async function render(){
-
-  if(
-    !window.MathJax
-    ||
-    !MathJax.startup
-  ){
-
-    return;
-
-  }
-
-
-  await MathJax.startup.promise;
+function render(){
 
 
   const n =
@@ -1125,6 +1321,11 @@ async function render(){
   }
 
 
+
+/* ---------------------------------------------------------
+   ANCHO
+   --------------------------------------------------------- */
+
   const L =
     X0
     +
@@ -1133,22 +1334,31 @@ async function render(){
     2;
 
 
+
+/* ---------------------------------------------------------
+   POSICIONES DE PUNTOS
+   --------------------------------------------------------- */
+
   const xs =
     pts.map(
+
       (_,i)=>
         X0 + DX*i
+
     );
 
 
-/* =========================================================
-   CENTROS DE LOS INTERVALOS
-   ========================================================= */
+
+/* ---------------------------------------------------------
+   CENTROS DE INTERVALOS
+   --------------------------------------------------------- */
 
   const cs =
     [];
 
 
   for(let k=0;k<=n;k++){
+
 
     cs.push(
 
@@ -1175,12 +1385,13 @@ async function render(){
   }
 
 
+
 /* =========================================================
    SVG
    ========================================================= */
 
   const LM =
-    190;
+    180;
 
 
   const CW =
@@ -1195,88 +1406,150 @@ async function render(){
     90;
 
 
-  const FF =
-    "'Latin Modern Roman','CMU Serif','Times New Roman',Georgia,serif";
 
+/* ---------------------------------------------------------
+   FUNCIÓN PARA TEXTO MATEMÁTICO NORMAL
+   --------------------------------------------------------- */
 
   const tx =
     (x,y,sz,t)=>
 
       `<text
-        x="${x}"
-        y="${y}"
-        font-size="${sz}"
-        font-family="${FF}"
-        text-anchor="middle"
-        dominant-baseline="central"
-        fill="currentColor">${t}</text>`;
 
+        x="${x}"
+
+        y="${y}"
+
+        font-size="${sz}"
+
+        font-family="${MATH_MAIN}"
+
+        text-anchor="middle"
+
+        dominant-baseline="central"
+
+        fill="currentColor"
+
+      >${escXml(t)}</text>`;
+
+
+
+/* ---------------------------------------------------------
+   LÍNEAS
+   --------------------------------------------------------- */
 
   const ln =
     (x1,y1,x2,y2)=>
 
       `<line
-        x1="${x1}"
-        y1="${y1}"
-        x2="${x2}"
-        y2="${y2}"
-        stroke="currentColor"
-        stroke-width="1.6"/>`;
 
+        x1="${x1}"
+
+        y1="${y1}"
+
+        x2="${x2}"
+
+        y2="${y2}"
+
+        stroke="currentColor"
+
+        stroke-width="1.6"
+
+      />`;
+
+
+
+/* ---------------------------------------------------------
+   COMIENZO DEL SVG
+   --------------------------------------------------------- */
 
   let s =
 
     `<svg
+
       xmlns="http://www.w3.org/2000/svg"
+
       width="${W}"
+
       height="150"
+
       viewBox="0 0 ${W} 150"
+
       role="img"
-      aria-label="Recta de signos">`;
+
+      aria-label="Recta de signos"
+
+    >`;
+
 
 
 /* =========================================================
-   SG + EXPRESIÓN EN MATEMÁTICA REAL
+   SG + EXPRESIÓN MATEMÁTICA
    ========================================================= */
 
   const expr =
     leftExpr();
 
 
-  let latexSg;
+  const sgX =
+    LM - 14;
 
 
-  if(expr){
+  s += `
 
-    latexSg =
-      `\\operatorname{Sg}\\,${expr}`;
+    <text
 
-  }
+      x="${sgX}"
 
-  else{
+      y="${y0}"
 
-    latexSg =
-      `\\operatorname{Sg}`;
+      font-size="27"
 
-  }
+      text-anchor="end"
+
+      dominant-baseline="central"
+
+      fill="currentColor"
+
+    >
 
 
-  s +=
-    mathFragment(
+      <tspan
 
-      latexSg,
+        font-family="${MATH_MAIN}"
 
-      LM - 14,
+        font-style="normal"
 
-      y0,
+      >Sg</tspan>
 
-      34
 
-    );
+      ${
+        expr
+        ?
+        `
+
+        <tspan
+
+          font-family="${MATH_ITALIC}"
+
+          font-style="italic"
+
+        >${escXml(' ' + mathPreview(expr))}</tspan>
+
+        `
+        :
+        ''
+      }
+
+
+    </text>
+
+  `;
+
 
 
 /* =========================================================
-   RECTA
+   RECTA HORIZONTAL
    ========================================================= */
 
   s +=
@@ -1293,12 +1566,15 @@ async function render(){
     );
 
 
+
 /* =========================================================
    PUNTOS
    ========================================================= */
 
   xs.forEach(
+
     (x,i)=>{
+
 
       const nx =
         topTex(i)
@@ -1309,6 +1585,11 @@ async function render(){
       const px =
         LM + x*U;
 
+
+
+/* ---------------------------------------------------------
+   MARCA VERTICAL
+   --------------------------------------------------------- */
 
       s +=
         ln(
@@ -1324,7 +1605,10 @@ async function render(){
         );
 
 
-/* NÚMERO */
+
+/* ---------------------------------------------------------
+   NÚMERO DEBAJO
+   --------------------------------------------------------- */
 
       s +=
         tx(
@@ -1333,7 +1617,7 @@ async function render(){
 
           y0+30,
 
-          26,
+          25,
 
           disp(
             pts[i].txt
@@ -1342,14 +1626,22 @@ async function render(){
         );
 
 
-/* SOBRE EL NÚMERO */
+
+/* ---------------------------------------------------------
+   VALOR SOBRE EL PUNTO
+   --------------------------------------------------------- */
 
       if(topTex(i)){
+
 
         let valor;
 
 
-        if(topTex(i) === '\\nexists'){
+        if(
+          topTex(i)
+          ===
+          '\\nexists'
+        ){
 
           valor =
             '∄';
@@ -1359,8 +1651,10 @@ async function render(){
         else{
 
           valor =
-            disp(
-              topTex(i)
+            mathPreview(
+              disp(
+                topTex(i)
+              )
             );
 
         }
@@ -1373,7 +1667,7 @@ async function render(){
 
             y0-32,
 
-            28,
+            27,
 
             valor
 
@@ -1386,12 +1680,15 @@ async function render(){
   );
 
 
+
 /* =========================================================
-   INTERVALOS
+   SIGNOS DE LOS INTERVALOS
    ========================================================= */
 
   cs.forEach(
+
     (c,k)=>{
+
 
       if(signs[k]){
 
@@ -1399,15 +1696,21 @@ async function render(){
         let textoSigno;
 
 
-        if(signs[k] === '-'){
+        if(
+          signs[k]
+          ===
+          '-'
+        ){
 
           textoSigno =
             '−';
 
         }
 
+
         else if(
-          signs[k] ===
+          signs[k]
+          ===
           '\\nexists'
         ){
 
@@ -1415,6 +1718,7 @@ async function render(){
             '∄';
 
         }
+
 
         else{
 
@@ -1431,7 +1735,7 @@ async function render(){
 
             y0-32,
 
-            30,
+            29,
 
             textoSigno
 
@@ -1444,8 +1748,14 @@ async function render(){
   );
 
 
+
+/* ---------------------------------------------------------
+   FIN SVG
+   --------------------------------------------------------- */
+
   s +=
     '</svg>';
+
 
 
   lastSvg = {
@@ -1463,8 +1773,9 @@ async function render(){
     s;
 
 
+
 /* =========================================================
-   TIKZ
+   GENERAR TIKZ
    ========================================================= */
 
   const f =
@@ -1476,7 +1787,14 @@ async function render(){
     [];
 
 
-  if($('full').checked){
+
+/* ---------------------------------------------------------
+   DOCUMENTO COMPLETO
+   --------------------------------------------------------- */
+
+  if(
+    $('full').checked
+  ){
 
     t.push(
 
@@ -1493,9 +1811,10 @@ async function render(){
   }
 
 
-/* =========================================================
+
+/* ---------------------------------------------------------
    SG EN TIKZ
-   ========================================================= */
+   --------------------------------------------------------- */
 
   const sgMath =
     leftExpr()
@@ -1503,6 +1822,7 @@ async function render(){
     `\\operatorname{Sg}\\,${leftExpr()}`
     :
     `\\operatorname{Sg}`;
+
 
 
   t.push(
@@ -1516,12 +1836,15 @@ async function render(){
   );
 
 
-/* =========================================================
-   PUNTOS EN TIKZ
-   ========================================================= */
+
+/* ---------------------------------------------------------
+   PUNTOS TIKZ
+   --------------------------------------------------------- */
 
   xs.forEach(
+
     (x,i)=>{
+
 
       const nx =
         topTex(i)
@@ -1538,7 +1861,9 @@ async function render(){
       );
 
 
-      if(topTex(i)){
+      if(
+        topTex(i)
+      ){
 
         t.push(
 
@@ -1553,14 +1878,19 @@ async function render(){
   );
 
 
-/* =========================================================
-   INTERVALOS EN TIKZ
-   ========================================================= */
+
+/* ---------------------------------------------------------
+   INTERVALOS TIKZ
+   --------------------------------------------------------- */
 
   cs.forEach(
+
     (c,k)=>{
 
-      if(signs[k]){
+
+      if(
+        signs[k]
+      ){
 
         t.push(
 
@@ -1575,12 +1905,19 @@ async function render(){
   );
 
 
+
+/* ---------------------------------------------------------
+   FIN TIKZ
+   --------------------------------------------------------- */
+
   t.push(
     '\\end{tikzpicture}'
   );
 
 
-  if($('full').checked){
+  if(
+    $('full').checked
+  ){
 
     t.push(
       '\\end{document}'
@@ -1595,17 +1932,23 @@ async function render(){
 }
 
 
+
 /* =========================================================
    ACTUALIZAR
    ========================================================= */
 
 function update(){
 
+
   const p =
     parse();
 
 
-  if(!p || !p.length){
+  if(
+    !p
+    ||
+    !p.length
+  ){
 
     $('err').textContent =
       'Ingresá al menos un número válido, por ejemplo: -1 2 5';
@@ -1632,34 +1975,46 @@ function update(){
 }
 
 
+
 /* =========================================================
    EVENTOS
    ========================================================= */
 
 $('nums').addEventListener(
+
   'input',
+
   update
+
 );
 
 
 $('sgexpr').addEventListener(
+
   'input',
+
   render
+
 );
 
 
 $('full').addEventListener(
+
   'change',
+
   render
+
 );
 
 
+
 /* =========================================================
-   COPIAR
+   COPIAR CÓDIGO
    ========================================================= */
 
 $('copy').onclick =
 async ()=>{
+
 
   const ta =
     $('code');
@@ -1672,6 +2027,7 @@ async ()=>{
     );
 
   }
+
 
   catch(e){
 
@@ -1705,18 +2061,33 @@ async ()=>{
 };
 
 
+
 /* =========================================================
-   SVG EXPORTABLE
+   EXPORTAR SVG
    ========================================================= */
 
 function exportSvg(){
 
+
+  if(
+    !lastSvg
+  ){
+
+    return '';
+
+  }
+
+
   return lastSvg.svg.replace(
+
     /currentColor/g,
+
     '#000000'
+
   );
 
 }
+
 
 
 /* =========================================================
@@ -1724,6 +2095,7 @@ function exportSvg(){
    ========================================================= */
 
 function note(t){
+
 
   $('dlmsg').textContent =
     t;
@@ -1745,8 +2117,9 @@ function note(t){
 }
 
 
+
 /* =========================================================
-   GUARDAR
+   DESCARGAR ARCHIVO
    ========================================================= */
 
 function save(
@@ -1755,17 +2128,22 @@ function save(
   type
 ){
 
+
   try{
+
 
     let blob;
 
 
-    if(data instanceof Blob){
+    if(
+      data instanceof Blob
+    ){
 
       blob =
         data;
 
     }
+
 
     else{
 
@@ -1786,6 +2164,7 @@ function save(
         );
 
     }
+
 
 
     const url =
@@ -1819,6 +2198,7 @@ function save(
     a.remove();
 
 
+
     setTimeout(
 
       ()=>{
@@ -1840,9 +2220,13 @@ function save(
 
   }
 
+
   catch(e){
 
-    console.error(e);
+
+    console.error(
+      e
+    );
 
 
     note(
@@ -1854,12 +2238,14 @@ function save(
 }
 
 
+
 /* =========================================================
    DESCARGAR SVG
    ========================================================= */
 
 $('dlsvg').onclick =
 ()=>{
+
 
   save(
 
@@ -1874,6 +2260,7 @@ $('dlsvg').onclick =
 };
 
 
+
 /* =========================================================
    DESCARGAR PNG
    ========================================================= */
@@ -1881,7 +2268,10 @@ $('dlsvg').onclick =
 $('dlpng').onclick =
 ()=>{
 
-  if(!lastSvg){
+
+  if(
+    !lastSvg
+  ){
 
     note(
       'No hay imagen para descargar'
@@ -1893,6 +2283,7 @@ $('dlpng').onclick =
   }
 
 
+
   const k =
     3;
 
@@ -1901,8 +2292,10 @@ $('dlpng').onclick =
     new Image();
 
 
+
   img.onload =
     ()=>{
+
 
       const c =
         document.createElement(
@@ -1924,6 +2317,11 @@ $('dlpng').onclick =
         );
 
 
+
+/* ---------------------------------------------------------
+   FONDO BLANCO
+   --------------------------------------------------------- */
+
       g.fillStyle =
         '#ffffff';
 
@@ -1941,6 +2339,11 @@ $('dlpng').onclick =
       );
 
 
+
+/* ---------------------------------------------------------
+   DIBUJAR
+   --------------------------------------------------------- */
+
       g.drawImage(
 
         img,
@@ -1956,11 +2359,19 @@ $('dlpng').onclick =
       );
 
 
+
+/* ---------------------------------------------------------
+   CREAR PNG
+   --------------------------------------------------------- */
+
       c.toBlob(
 
         blob=>{
 
-          if(blob){
+
+          if(
+            blob
+          ){
 
             save(
 
@@ -1973,6 +2384,7 @@ $('dlpng').onclick =
             );
 
           }
+
 
           else{
 
@@ -1991,8 +2403,10 @@ $('dlpng').onclick =
     };
 
 
+
   img.onerror =
     ()=>{
+
 
       note(
         'No se pudo generar la imagen'
@@ -2001,26 +2415,26 @@ $('dlpng').onclick =
     };
 
 
-  const svg =
-    exportSvg();
-
 
   img.src =
+
     'data:image/svg+xml;charset=utf-8,'
+
     +
+
     encodeURIComponent(
-      svg
+      exportSvg()
     );
 
 };
 
 
+
 /* =========================================================
-   INICIAR CUANDO MATHJAX ESTÉ DISPONIBLE
+   INICIO
    ========================================================= */
 
-window.addEventListener(
-  'load',
+document.fonts.ready.then(
   ()=>{
 
     update();
@@ -2028,7 +2442,10 @@ window.addEventListener(
   }
 );
 
+
 </script>
 
+
 </body>
+
 </html>
