@@ -233,13 +233,11 @@ textarea{
 <main>
 
   <div>
-
     <h1>Recta de signos</h1>
 
     <p class="sub">
       Cargá los números y los signos; obtenés la vista previa y el código TikZ.
     </p>
-
   </div>
 
 
@@ -268,6 +266,28 @@ textarea{
       id="err"
       role="alert"
     ></div>
+
+  </section>
+
+
+  <section>
+
+    <label for="sgexpr">
+      Expresión para el signo
+    </label>
+
+    <input
+      type="text"
+      id="sgexpr"
+      value="f'"
+      autocomplete="off"
+      spellcheck="false"
+    >
+
+    <div class="hint">
+      Se mostrará a la izquierda como Sg de la expresión.
+      Escribí sin signos $. Ejemplos: f', g(x), h'', \frac{f}{g}
+    </div>
 
   </section>
 
@@ -382,17 +402,11 @@ textarea{
     </div>
 
     <div class="hint">
-
       Necesita los paquetes
-
       <code>tikz</code>
-
       y
-
       <code>amssymb</code>
-
       (para <code>\nexists</code>).
-
     </div>
 
   </section>
@@ -453,9 +467,7 @@ function parse(){
 
 
     if(!m){
-
       return null;
-
     }
 
 
@@ -475,9 +487,7 @@ function parse(){
 
 
     if(!isFinite(val)){
-
       return null;
-
     }
 
 
@@ -490,13 +500,9 @@ function parse(){
 
 
     out.push({
-
       val,
-
       tex,
-
       txt:t
-
     });
 
   }
@@ -537,6 +543,26 @@ function disp(s){
     )
 
     .replace(
+      /\\cdot/g,
+      '·'
+    )
+
+    .replace(
+      /\\left/g,
+      ''
+    )
+
+    .replace(
+      /\\right/g,
+      ''
+    )
+
+    .replace(
+      /\\,/g,
+      ' '
+    )
+
+    .replace(
       /\\[a-zA-Z]+/g,
       ''
     )
@@ -554,7 +580,39 @@ function disp(s){
 }
 
 
-/* ========================================================= */
+/* =========================================================
+   ESCAPAR XML
+   ========================================================= */
+
+function escXml(s){
+
+  return s
+
+    .replace(/&/g,'&amp;')
+
+    .replace(/</g,'&lt;')
+
+    .replace(/>/g,'&gt;');
+
+}
+
+
+/* =========================================================
+   EXPRESIÓN DE SG
+   ========================================================= */
+
+function leftExpr(){
+
+  return $('sgexpr')
+    .value
+    .trim();
+
+}
+
+
+/* =========================================================
+   TEXTO SUPERIOR DE LOS PUNTOS
+   ========================================================= */
 
 function topTex(i){
 
@@ -724,15 +782,6 @@ function buildControls(){
     c.innerHTML =
       `<b>(${a} ; ${b})</b>`;
 
-
-/*
-   AHORA TENEMOS CUATRO OPCIONES:
-
-   +
-   -
-   ∄
-   vacío
-*/
 
     c.appendChild(
 
@@ -1015,8 +1064,16 @@ function render(){
    SVG
    ========================================================= */
 
-  const W =
+  const LM =
+    150;
+
+
+  const CW =
     L*U;
+
+
+  const W =
+    LM + CW;
 
 
   const y0 =
@@ -1036,6 +1093,19 @@ function render(){
         font-size="${sz}"
         font-family="${FF}"
         text-anchor="middle"
+        dominant-baseline="central"
+        fill="currentColor">${t}</text>`;
+
+
+  const txL =
+    (x,y,sz,t)=>
+
+      `<text
+        x="${x}"
+        y="${y}"
+        font-size="${sz}"
+        font-family="${FF}"
+        text-anchor="end"
         dominant-baseline="central"
         fill="currentColor">${t}</text>`;
 
@@ -1066,12 +1136,44 @@ function render(){
 
 
 /* ---------------------------------------------------------
+   SG A LA IZQUIERDA
+   --------------------------------------------------------- */
+
+  const expr =
+    leftExpr();
+
+
+  const sgText =
+    expr
+    ?
+    `Sg ${disp(expr)}`
+    :
+    'Sg';
+
+
+  s +=
+    txL(
+
+      LM - 12,
+
+      y0,
+
+      26,
+
+      escXml(
+        sgText
+      )
+
+    );
+
+
+/* ---------------------------------------------------------
    RECTA HORIZONTAL
    --------------------------------------------------------- */
 
   s +=
     ln(
-      0,
+      LM,
       y0,
       W,
       y0
@@ -1092,7 +1194,7 @@ function render(){
 
 
       const px =
-        x*U;
+        LM + x*U;
 
 
 /* MARCA VERTICAL */
@@ -1193,7 +1295,7 @@ function render(){
         s +=
           tx(
 
-            c*U,
+            LM + c*U,
 
             y0-32,
 
@@ -1267,9 +1369,19 @@ function render(){
    INICIO TIKZ
    --------------------------------------------------------- */
 
+  const sgMath =
+    leftExpr()
+    ?
+    `\\operatorname{Sg}\\,${leftExpr()}`
+    :
+    `\\operatorname{Sg}`;
+
+
   t.push(
 
     '\\begin{tikzpicture}',
+
+    `  \\node[anchor=east] at (-0.25,0) {$${sgMath}$};`,
 
     `  \\draw (0,0) -- (${f(L)},0);`
 
@@ -1403,6 +1515,12 @@ function update(){
 $('nums').addEventListener(
   'input',
   update
+);
+
+
+$('sgexpr').addEventListener(
+  'input',
+  render
 );
 
 
