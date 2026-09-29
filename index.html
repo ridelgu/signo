@@ -1143,29 +1143,44 @@ function render(){
     leftExpr();
 
 
-  const sgText =
-    expr
-    ?
-    `Sg ${disp(expr)}`
-    :
-    'Sg';
+  const sgLabelX = LM - 12;
 
+if(expr){
 
-  s +=
-    txL(
+  s += `
+    <text
+      x="${sgLabelX}"
+      y="${y0}"
+      font-size="26"
+      font-family="'Latin Modern Roman','CMU Serif','Times New Roman',Georgia,serif"
+      text-anchor="end"
+      dominant-baseline="central"
+      fill="currentColor">
 
-      LM - 12,
+      <tspan font-style="normal">Sg </tspan>
+      <tspan font-style="italic">${escXml(disp(expr))}</tspan>
 
-      y0,
+    </text>
+  `;
 
-      26,
+}else{
 
-      escXml(
-        sgText
-      )
+  s += `
+    <text
+      x="${sgLabelX}"
+      y="${y0}"
+      font-size="26"
+      font-family="'Latin Modern Roman','CMU Serif','Times New Roman',Georgia,serif"
+      text-anchor="end"
+      dominant-baseline="central"
+      fill="currentColor">
 
-    );
+      <tspan font-style="normal">Sg</tspan>
 
+    </text>
+  `;
+
+}
 
 /* ---------------------------------------------------------
    RECTA HORIZONTAL
