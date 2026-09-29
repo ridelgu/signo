@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>Recta de signos → TikZ</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&display=swap">
+
+<style>
+
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+
+  --bg:#eef1f7;
+  --card:#fff;
+  --ink:#1f2a8a;
+  --text:#1d2233;
+  --mute:#5d6580;
+  --line:#cfd5e6;
+  --acc:#1f2a8a;
+  --accfg:#fff;
+}
+
+@media (prefers-color-scheme:dark){
+
+  :root:not([data-theme="light"]){
+
+    --bg:#12152a;
+    --card:#1a1f3a;
+    --ink:#a9b6ff;
+    --text:#e6e9f7;
+    --mute:#98a0c4;
+    --line:#2e3560;
+    --acc:#a9b6ff;
+    --accfg:#12152a;
+  }
+}
+
+:root[data-theme="dark"]{
+
+  --bg:#12152a;
+  --card:#1a1f3a;
+  --ink:#a9b6ff;
+  --text:#e6e9f7;
+  --mute:#98a0c4;
+  --line:#2e3560;
+  --acc:#a9b6ff;
+  --accfg:#12152a;
+}
+
+html{
+  scroll-padding-top:env(safe-area-inset-top,0px);
+}
+
+*,
+*::before,
+*::after{
+  box-sizing:inherit;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:16px/1.5 Figtree,system-ui,sans-serif;
+}
+
+main{
+  max-width:1000px;
+  margin:0 auto;
+  padding:20px 16px 40px;
+  display:grid;
+  gap:16px;
+}
+
+h1{
+  font-size:1.5rem;
+  margin:0;
+}
+
+p.sub{
+  margin:0;
+  color:var(--mute);
+}
+
+section{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:16px;
+}
+
+h2{
+  font-size:1rem;
+  margin:0 0 10px;
+}
+
+label{
+  display:block;
+  font-weight:600;
+  margin-bottom:4px;
+}
+
+input[type=text],
+select{
+  width:100%;
+  padding:8px 10px;
+  border:1px solid var(--line);
+  border-radius:6px;
+  background:var(--bg);
+  color:var(--text);
+  font:inherit;
+}
+
+input:focus-visible,
+select:focus-visible,
+button:focus-visible{
+  outline:2px solid var(--acc);
+  outline-offset:2px;
+}
+
+.hint{
+  color:var(--mute);
+  font-size:.875rem;
+  margin-top:4px;
+}
+
+.grid{
+  display:grid;
+  gap:10px;
+  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+}
+
+.cell{
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:8px 10px;
+  display:grid;
+  gap:6px;
+}
+
+.cell b{
+  font-weight:600;
+}
+
+.seg{
+  display:flex;
+  gap:4px;
+}
+
+.seg button{
+  flex:1;
+  padding:6px 0;
+  border:1px solid var(--line);
+  background:var(--bg);
+  color:var(--text);
+  border-radius:6px;
+  font:inherit;
+  cursor:pointer;
+}
+
+.seg button[aria-pressed=true]{
+  background:var(--acc);
+  color:var(--accfg);
+  border-color:var(--acc);
+}
+
+.prev{
+  overflow-x:auto;
+}
+
+svg{
+  display:block;
+  margin:0 auto;
+  max-width:none;
+  color:var(--text);
+}
+
+textarea{
+  width:100%;
+  min-height:200px;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:6px;
+  background:var(--bg);
+  color:var(--text);
+  font:13px/1.5 ui-monospace,Consolas,monospace;
+  resize:vertical;
+}
+
+.row{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-top:8px;
+}
+
+.row label{
+  display:inline-flex;
+  gap:6px;
+  align-items:center;
+  font-weight:400;
+  margin:0;
+}
+
+.btn{
+  padding:8px 16px;
+  border:0;
+  border-radius:6px;
+  background:var(--acc);
+  color:var(--accfg);
+  font:inherit;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.err{
+  color:#c0392b;
+  font-size:.9rem;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<main>
+
+  <div>
+
+    <h1>Recta de signos</h1>
+
+    <p class="sub">
+      Cargá los números y los signos; obtenés la vista previa y el código TikZ.
+    </p>
+
+  </div>
+
+
+  <section>
+
+    <label for="nums">
+      Números reales
+    </label>
+
+    <input
+      type="text"
+      id="nums"
+      value="-1 2 5"
+      autocomplete="off"
+      spellcheck="false"
+    >
+
+    <div class="hint">
+      Separados por espacio o “;”.
+      Podés usar enteros, decimales (0,5) o fracciones (-3/2).
+      Se ordenan solos.
+    </div>
+
+    <div
+      class="err"
+      id="err"
+      role="alert"
+    ></div>
+
+  </section>
+
+
+  <section>
+
+    <h2>
+      Signo en cada intervalo
+    </h2>
+
+    <div
+      class="grid"
+      id="signs"
+    ></div>
+
+  </section>
+
+
+  <section>
+
+    <h2>
+      Lo que va arriba de cada número
+    </h2>
+
+    <div
+      class="grid"
+      id="tops"
+    ></div>
+
+  </section>
+
+
+  <section>
+
+    <h2>
+      Vista previa
+    </h2>
+
+    <div
+      class="prev"
+      id="prev"
+    ></div>
+
+    <div
+      class="row"
+      id="dl"
+    >
+
+      <button
+        class="btn"
+        id="dlpng"
+      >
+        Descargar PNG
+      </button>
+
+      <button
+        class="btn"
+        id="dlsvg"
+      >
+        Descargar SVG
+      </button>
+
+      <span
+        class="hint"
+        id="dlmsg"
+        role="status"
+      ></span>
+
+    </div>
+
+  </section>
+
+
+  <section>
+
+    <h2>
+      Código LaTeX
+    </h2>
+
+    <textarea
+      id="code"
+      readonly
+      aria-label="Código TikZ"
+    ></textarea>
+
+    <div class="row">
+
+      <button
+        class="btn"
+        id="copy"
+      >
+        Copiar código
+      </button>
+
+      <label>
+
+        <input
+          type="checkbox"
+          id="full"
+        >
+
+        Documento completo (standalone)
+
+      </label>
+
+      <span
+        class="hint"
+        id="msg"
+        role="status"
+      ></span>
+
+    </div>
+
+    <div class="hint">
+
+      Necesita los paquetes
+
+      <code>tikz</code>
+
+      y
+
+      <code>amssymb</code>
+
+      (para <code>\nexists</code>).
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<script>
+
+const $ = id =>
+  document.getElementById(id);
+
+
+const TOPS = [
+
+  ['', 'nada'],
+
+  ['0', '0'],
+
+  ['\\nexists', '∄'],
+
+  ['custom', 'otro…']
+
+];
+
+
+let pts = [];
+
+let signs = [];
+
+let tops = [];
+
+let lastSvg = null;
+
+
+/* =========================================================
+   LEER LOS NÚMEROS
+   ========================================================= */
+
+function parse(){
+
+  const toks =
+    $('nums')
+      .value
+      .split(/[\s;]+/)
+      .filter(Boolean);
+
+
+  const out = [];
+
+
+  for(const t of toks){
+
+    const m =
+      t.match(
+        /^(-?)(\d+(?:[.,]\d+)?)(?:\/(\d+(?:[.,]\d+)?))?$/
+      );
+
+
+    if(!m){
+
+      return null;
+
+    }
+
+
+    const f =
+      s =>
+        parseFloat(
+          s.replace(',','.')
+        );
+
+
+    const val =
+      (m[1] ? -1 : 1)
+      *
+      f(m[2])
+      /
+      (m[3] ? f(m[3]) : 1);
+
+
+    if(!isFinite(val)){
+
+      return null;
+
+    }
+
+
+    const tex =
+      m[3]
+      ?
+      `${m[1]}\\frac{${m[2].replace(',','{,}')}}{${m[3].replace(',','{,}')}}`
+      :
+      t.replace(',','{,}');
+
+
+    out.push({
+
+      val,
+
+      tex,
+
+      txt:t
+
+    });
+
+  }
+
+
+  out.sort(
+    (a,b) =>
+      a.val-b.val
+  );
+
+
+  return out;
+
+}
+
+
+/* =========================================================
+   TEXTO PARA LA VISTA PREVIA
+   ========================================================= */
+
+function disp(s){
+
+  return s
+
+    .replace(
+      /\\nexists/g,
+      '∄'
+    )
+
+    .replace(
+      /\\infty/g,
+      '∞'
+    )
+
+    .replace(
+      /\\frac\{([^}]*)\}\{([^}]*)\}/g,
+      '$1/$2'
+    )
+
+    .replace(
+      /\\[a-zA-Z]+/g,
+      ''
+    )
+
+    .replace(
+      /[{}$]/g,
+      ''
+    )
+
+    .replace(
+      /-/g,
+      '−'
+    );
+
+}
+
+
+/* ========================================================= */
+
+function topTex(i){
+
+  const t =
+    tops[i];
+
+
+  return t.v === 'custom'
+    ?
+    t.c
+    :
+    t.v;
+
+}
+
+
+/* =========================================================
+   BOTONES SEGMENTADOS
+   ========================================================= */
+
+function seg(opts,cur,fn){
+
+  const d =
+    document.createElement('div');
+
+
+  d.className =
+    'seg';
+
+
+  opts.forEach(
+    ([v,l])=>{
+
+      const b =
+        document.createElement('button');
+
+
+      b.type =
+        'button';
+
+
+      b.textContent =
+        l;
+
+
+      b.setAttribute(
+        'aria-pressed',
+        v === cur
+      );
+
+
+      b.onclick =
+        ()=>{
+          fn(v);
+        };
+
+
+      d.appendChild(b);
+
+    }
+  );
+
+
+  return d;
+
+}
+
+
+/* =========================================================
+   CONTROLES
+   ========================================================= */
+
+function buildControls(){
+
+  const n =
+    pts.length;
+
+
+/* ---------------------------------------------------------
+   SIGNOS INICIALES
+   --------------------------------------------------------- */
+
+  while(signs.length < n+1){
+
+    signs.push(
+
+      signs.length % 2
+      ?
+      '-'
+      :
+      '+'
+
+    );
+
+  }
+
+
+  signs.length =
+    n+1;
+
+
+/* ---------------------------------------------------------
+   VALORES SOBRE LOS PUNTOS
+   --------------------------------------------------------- */
+
+  while(tops.length < n){
+
+    tops.push({
+
+      v:'0',
+
+      c:''
+
+    });
+
+  }
+
+
+  tops.length =
+    n;
+
+
+/* =========================================================
+   INTERVALOS
+   ========================================================= */
+
+  const S =
+    $('signs');
+
+
+  S.innerHTML =
+    '';
+
+
+  for(let k=0;k<=n;k++){
+
+    const a =
+      k === 0
+      ?
+      '−∞'
+      :
+      disp(
+        pts[k-1].txt
+      );
+
+
+    const b =
+      k === n
+      ?
+      '+∞'
+      :
+      disp(
+        pts[k].txt
+      );
+
+
+    const c =
+      document.createElement(
+        'div'
+      );
+
+
+    c.className =
+      'cell';
+
+
+    c.innerHTML =
+      `<b>(${a} ; ${b})</b>`;
+
+
+/*
+   AHORA TENEMOS CUATRO OPCIONES:
+
+   +
+   -
+   ∄
+   vacío
+*/
+
+    c.appendChild(
+
+      seg(
+
+        [
+
+          ['+','+'],
+
+          ['-','−'],
+
+          ['\\nexists','∄'],
+
+          ['','vacío']
+
+        ],
+
+        signs[k],
+
+        v=>{
+
+          signs[k] =
+            v;
+
+
+          buildControls();
+
+
+          render();
+
+        }
+
+      )
+
+    );
+
+
+    S.appendChild(
+      c
+    );
+
+  }
+
+
+/* =========================================================
+   VALORES SOBRE CADA PUNTO
+   ========================================================= */
+
+  const T =
+    $('tops');
+
+
+  T.innerHTML =
+    '';
+
+
+  pts.forEach(
+    (p,i)=>{
+
+      const c =
+        document.createElement(
+          'div'
+        );
+
+
+      c.className =
+        'cell';
+
+
+      c.innerHTML =
+        `<b>Sobre x = ${disp(p.txt)}</b>`;
+
+
+      const sel =
+        document.createElement(
+          'select'
+        );
+
+
+      sel.setAttribute(
+        'aria-label',
+        'Sobre '+p.txt
+      );
+
+
+      TOPS.forEach(
+        ([v,l])=>{
+
+          const o =
+            document.createElement(
+              'option'
+            );
+
+
+          o.value =
+            v;
+
+
+          o.textContent =
+            l;
+
+
+          if(v === tops[i].v){
+
+            o.selected =
+              true;
+
+          }
+
+
+          sel.appendChild(
+            o
+          );
+
+        }
+      );
+
+
+      sel.onchange =
+        ()=>{
+
+          tops[i].v =
+            sel.value;
+
+
+          buildControls();
+
+
+          render();
+
+        };
+
+
+      c.appendChild(
+        sel
+      );
+
+
+/* ---------------------------------------------------------
+   TEXTO PERSONALIZADO
+   --------------------------------------------------------- */
+
+      if(tops[i].v === 'custom'){
+
+        const inp =
+          document.createElement(
+            'input'
+          );
+
+
+        inp.type =
+          'text';
+
+
+        inp.value =
+          tops[i].c;
+
+
+        inp.placeholder =
+          'LaTeX, ej. \\infty';
+
+
+        inp.setAttribute(
+          'aria-label',
+          'Texto propio'
+        );
+
+
+        inp.oninput =
+          ()=>{
+
+            tops[i].c =
+              inp.value;
+
+
+            render();
+
+          };
+
+
+        c.appendChild(
+          inp
+        );
+
+      }
+
+
+      T.appendChild(
+        c
+      );
+
+    }
+
+  );
+
+}
+
+
+/* =========================================================
+   DIMENSIONES
+   ========================================================= */
+
+const U =
+  60;
+
+
+const X0 =
+  2;
+
+
+const DX =
+  3;
+
+
+/* =========================================================
+   GENERAR RECTA
+   ========================================================= */
+
+function render(){
+
+  const n =
+    pts.length;
+
+
+  const L =
+    X0
+    +
+    DX*(n-1)
+    +
+    2;
+
+
+/* ---------------------------------------------------------
+   COORDENADAS DE LOS PUNTOS
+   --------------------------------------------------------- */
+
+  const xs =
+    pts.map(
+      (_,i)=>
+        X0 + DX*i
+    );
+
+
+/* ---------------------------------------------------------
+   CENTROS DE LOS INTERVALOS
+   --------------------------------------------------------- */
+
+  const cs =
+    [];
+
+
+  for(let k=0;k<=n;k++){
+
+    cs.push(
+
+      k === 0
+      ?
+      1
+
+      :
+
+      k === n
+      ?
+      xs[n-1] + 1
+
+      :
+
+      (
+        xs[k-1]
+        +
+        xs[k]
+      )/2
+
+    );
+
+  }
+
+
+/* =========================================================
+   SVG
+   ========================================================= */
+
+  const W =
+    L*U;
+
+
+  const y0 =
+    90;
+
+
+  const FF =
+    "'Latin Modern Roman','CMU Serif','Times New Roman',Georgia,serif";
+
+
+  const tx =
+    (x,y,sz,t)=>
+
+      `<text
+        x="${x}"
+        y="${y}"
+        font-size="${sz}"
+        font-family="${FF}"
+        text-anchor="middle"
+        dominant-baseline="central"
+        fill="currentColor">${t}</text>`;
+
+
+  const ln =
+    (x1,y1,x2,y2)=>
+
+      `<line
+        x1="${x1}"
+        y1="${y1}"
+        x2="${x2}"
+        y2="${y2}"
+        stroke="currentColor"
+        stroke-width="1.6"/>`;
+
+
+/* --------------------------------------------------------- */
+
+  let s =
+
+    `<svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="${W}"
+      height="150"
+      viewBox="0 0 ${W} 150"
+      role="img"
+      aria-label="Recta de signos">`;
+
+
+/* ---------------------------------------------------------
+   RECTA HORIZONTAL
+   --------------------------------------------------------- */
+
+  s +=
+    ln(
+      0,
+      y0,
+      W,
+      y0
+    );
+
+
+/* ---------------------------------------------------------
+   PUNTOS
+   --------------------------------------------------------- */
+
+  xs.forEach(
+    (x,i)=>{
+
+      const nx =
+        topTex(i)
+        ===
+        '\\nexists';
+
+
+      const px =
+        x*U;
+
+
+/* MARCA VERTICAL */
+
+      s +=
+        ln(
+
+          px,
+
+          y0+7,
+
+          px,
+
+          y0-(nx ? 22 : 7)
+
+        );
+
+
+/* NÚMERO */
+
+      s +=
+        tx(
+
+          px,
+
+          y0+30,
+
+          26,
+
+          disp(
+            pts[i].txt
+          )
+
+        );
+
+
+/* VALOR SUPERIOR */
+
+      if(topTex(i)){
+
+        s +=
+          tx(
+
+            px,
+
+            y0-32,
+
+            28,
+
+            disp(
+              topTex(i)
+            )
+
+          );
+
+      }
+
+    }
+
+  );
+
+
+/* =========================================================
+   SIGNOS DE LOS INTERVALOS
+   ========================================================= */
+
+  cs.forEach(
+    (c,k)=>{
+
+      if(signs[k]){
+
+
+        let textoSigno;
+
+
+        if(signs[k] === '-'){
+
+          textoSigno =
+            '−';
+
+        }
+
+        else if(signs[k] === '\\nexists'){
+
+          textoSigno =
+            '∄';
+
+        }
+
+        else{
+
+          textoSigno =
+            '+';
+
+        }
+
+
+        s +=
+          tx(
+
+            c*U,
+
+            y0-32,
+
+            30,
+
+            textoSigno
+
+          );
+
+      }
+
+    }
+
+  );
+
+
+  s +=
+    '</svg>';
+
+
+  lastSvg = {
+
+    svg:s,
+
+    w:W,
+
+    h:150
+
+  };
+
+
+  $('prev').innerHTML =
+    s;
+
+
+/* =========================================================
+   CÓDIGO TIKZ
+   ========================================================= */
+
+  const f =
+    v =>
+      +v.toFixed(2);
+
+
+  let t =
+    [];
+
+
+/* ---------------------------------------------------------
+   DOCUMENTO COMPLETO
+   --------------------------------------------------------- */
+
+  if($('full').checked){
+
+    t.push(
+
+      '\\documentclass[border=5pt]{standalone}',
+
+      '\\usepackage{tikz}',
+
+      '\\usepackage{amssymb}',
+
+      '\\begin{document}'
+
+    );
+
+  }
+
+
+/* ---------------------------------------------------------
+   INICIO TIKZ
+   --------------------------------------------------------- */
+
+  t.push(
+
+    '\\begin{tikzpicture}',
+
+    `  \\draw (0,0) -- (${f(L)},0);`
+
+  );
+
+
+/* ---------------------------------------------------------
+   PUNTOS
+   --------------------------------------------------------- */
+
+  xs.forEach(
+    (x,i)=>{
+
+      const nx =
+        topTex(i)
+        ===
+        '\\nexists';
+
+
+      t.push(
+
+        `  \\draw (${x},-0.12) -- (${x},${nx ? 0.3 : 0.12});`,
+
+        `  \\node[below=2pt] at (${x},-0.12) {$${pts[i].tex}$};`
+
+      );
+
+
+      if(topTex(i)){
+
+        t.push(
+
+          `  \\node at (${x},0.5) {$${topTex(i)}$};`
+
+        );
+
+      }
+
+    }
+
+  );
+
+
+/* ---------------------------------------------------------
+   INTERVALOS
+   --------------------------------------------------------- */
+
+  cs.forEach(
+    (c,k)=>{
+
+      if(signs[k]){
+
+        t.push(
+
+          `  \\node at (${f(c)},0.5) {$${signs[k]}$};`
+
+        );
+
+      }
+
+    }
+
+  );
+
+
+/* ---------------------------------------------------------
+   FIN
+   --------------------------------------------------------- */
+
+  t.push(
+    '\\end{tikzpicture}'
+  );
+
+
+  if($('full').checked){
+
+    t.push(
+      '\\end{document}'
+    );
+
+  }
+
+
+  $('code').value =
+    t.join('\n');
+
+}
+
+
+/* =========================================================
+   ACTUALIZAR
+   ========================================================= */
+
+function update(){
+
+  const p =
+    parse();
+
+
+  if(!p || !p.length){
+
+    $('err').textContent =
+      'Ingresá al menos un número válido, por ejemplo: -1 2 5';
+
+
+    return;
+
+  }
+
+
+  $('err').textContent =
+    '';
+
+
+  pts =
+    p;
+
+
+  buildControls();
+
+
+  render();
+
+}
+
+
+/* =========================================================
+   EVENTOS
+   ========================================================= */
+
+$('nums').addEventListener(
+  'input',
+  update
+);
+
+
+$('full').addEventListener(
+  'change',
+  render
+);
+
+
+/* =========================================================
+   COPIAR CÓDIGO
+   ========================================================= */
+
+$('copy').onclick =
+async ()=>{
+
+  const ta =
+    $('code');
+
+
+  try{
+
+    await navigator.clipboard.writeText(
+      ta.value
+    );
+
+  }
+
+  catch(e){
+
+    ta.select();
+
+
+    document.execCommand(
+      'copy'
+    );
+
+  }
+
+
+  $('msg').textContent =
+    'Copiado';
+
+
+  setTimeout(
+
+    ()=>{
+
+      $('msg').textContent =
+        '';
+
+    },
+
+    1800
+
+  );
+
+};
+
+
+/* =========================================================
+   EXPORTACIÓN SVG
+   ========================================================= */
+
+function exportSvg(){
+
+  return lastSvg.svg.replace(
+    /currentColor/g,
+    '#000000'
+  );
+
+}
+
+
+/* =========================================================
+   MENSAJE
+   ========================================================= */
+
+function note(t){
+
+  $('dlmsg').textContent =
+    t;
+
+
+  setTimeout(
+
+    ()=>{
+
+      $('dlmsg').textContent =
+        '';
+
+    },
+
+    2500
+
+  );
+
+}
+
+
+/* =========================================================
+   DESCARGAR ARCHIVO
+   ========================================================= */
+
+function save(filename,data,type){
+
+  try{
+
+    let blob;
+
+
+    if(data instanceof Blob){
+
+      blob =
+        data;
+
+    }
+
+    else{
+
+      blob =
+        new Blob(
+
+          [data],
+
+          {
+
+            type:
+              type
+              ||
+              'application/octet-stream'
+
+          }
+
+        );
+
+    }
+
+
+    const url =
+      URL.createObjectURL(
+        blob
+      );
+
+
+    const a =
+      document.createElement(
+        'a'
+      );
+
+
+    a.href =
+      url;
+
+
+    a.download =
+      filename;
+
+
+    document.body.appendChild(
+      a
+    );
+
+
+    a.click();
+
+
+    a.remove();
+
+
+    setTimeout(
+
+      ()=>{
+
+        URL.revokeObjectURL(
+          url
+        );
+
+      },
+
+      1000
+
+    );
+
+
+    note(
+      'Archivo descargado'
+    );
+
+  }
+
+  catch(e){
+
+    console.error(e);
+
+
+    note(
+      'No se pudo guardar el archivo'
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   DESCARGAR SVG
+   ========================================================= */
+
+$('dlsvg').onclick =
+()=>{
+
+  save(
+
+    'recta-de-signos.svg',
+
+    exportSvg(),
+
+    'image/svg+xml;charset=utf-8'
+
+  );
+
+};
+
+
+/* =========================================================
+   DESCARGAR PNG
+   ========================================================= */
+
+$('dlpng').onclick =
+()=>{
+
+  if(!lastSvg){
+
+    note(
+      'No hay imagen para descargar'
+    );
+
+
+    return;
+
+  }
+
+
+  const k =
+    3;
+
+
+  const img =
+    new Image();
+
+
+  img.onload =
+    ()=>{
+
+      const c =
+        document.createElement(
+          'canvas'
+        );
+
+
+      c.width =
+        lastSvg.w*k;
+
+
+      c.height =
+        lastSvg.h*k;
+
+
+      const g =
+        c.getContext(
+          '2d'
+        );
+
+
+/* ---------------------------------------------------------
+   FONDO BLANCO
+   --------------------------------------------------------- */
+
+      g.fillStyle =
+        '#ffffff';
+
+
+      g.fillRect(
+
+        0,
+
+        0,
+
+        c.width,
+
+        c.height
+
+      );
+
+
+/* ---------------------------------------------------------
+   DIBUJAR SVG
+   --------------------------------------------------------- */
+
+      g.drawImage(
+
+        img,
+
+        0,
+
+        0,
+
+        c.width,
+
+        c.height
+
+      );
+
+
+/* ---------------------------------------------------------
+   CREAR PNG
+   --------------------------------------------------------- */
+
+      c.toBlob(
+
+        blob=>{
+
+          if(blob){
+
+            save(
+
+              'recta-de-signos.png',
+
+              blob,
+
+              'image/png'
+
+            );
+
+          }
+
+          else{
+
+            note(
+              'No se pudo generar la imagen'
+            );
+
+          }
+
+        },
+
+        'image/png'
+
+      );
+
+    };
+
+
+  img.onerror =
+    ()=>{
+
+      note(
+        'No se pudo generar la imagen'
+      );
+
+    };
+
+
+  const svg =
+    exportSvg();
+
+
+  img.src =
+    'data:image/svg+xml;charset=utf-8,'
+    +
+    encodeURIComponent(
+      svg
+    );
+
+};
+
+
+/* =========================================================
+   INICIO
+   ========================================================= */
+
+update();
+
+</script>
+
+</body>
+</html>
