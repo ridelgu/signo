@@ -897,9 +897,10 @@ let intervalValues = [];
 
 let topValues = [];
 
-let lastSvg = null;
+/* true = raíz de multiplicidad par */
+let evenMultiplicity = [];
 
-let renderVersion = 0;
+let lastSvg = null;
 
 
 
@@ -993,7 +994,20 @@ function prepareState(){
 
   topValues.length =
     points.length;
+while(
+  evenMultiplicity.length
+  <
+  points.length
+){
 
+  evenMultiplicity.push(
+    false
+  );
+
+}
+
+evenMultiplicity.length =
+  points.length;
 
   return true;
 
@@ -1167,7 +1181,81 @@ function buildControls(){
     card.appendChild(
       title
     );
+/* ---------------------------------------------------------
+   MULTIPLICIDAD PAR
+   --------------------------------------------------------- */
 
+const multLabel =
+  document.createElement(
+    'label'
+  );
+
+
+multLabel.style.display =
+  'flex';
+
+
+multLabel.style.alignItems =
+  'center';
+
+
+multLabel.style.gap =
+  '7px';
+
+
+multLabel.style.marginTop =
+  '4px';
+
+
+multLabel.style.fontWeight =
+  '400';
+
+
+multLabel.style.cursor =
+  'pointer';
+
+
+const multCheck =
+  document.createElement(
+    'input'
+  );
+
+
+multCheck.type =
+  'checkbox';
+
+
+multCheck.checked =
+  evenMultiplicity[i];
+
+
+multCheck.onchange =
+  ()=>{
+
+    evenMultiplicity[i] =
+      multCheck.checked;
+
+
+    render();
+
+  };
+
+
+multLabel.appendChild(
+  multCheck
+);
+
+
+multLabel.appendChild(
+  document.createTextNode(
+    'Multiplicidad par'
+  )
+);
+
+
+card.appendChild(
+  multLabel
+);
 
 /* ---------------------------------------------------------
    NOMBRE VISIBLE DEL INTERVALO
@@ -1967,25 +2055,64 @@ async function render(){
    RECTA
    ========================================================= */
 
+ if(
+  evenMultiplicity[i]
+){
+
+  /*
+     Multiplicidad par:
+     dos marcas verticales próximas
+  */
+
+  const sep =
+    4;
+
+
   svg += `
 
     <line
-
-      x1="${LM}"
-
-      y1="${y0}"
-
-      x2="${lineEnd}"
-
-      y2="${y0}"
-
+      x1="${x-sep}"
+      y1="${y0+7}"
+      x2="${x-sep}"
+      y2="${y0-8}"
       stroke="currentColor"
-
       stroke-width="1.6"
-
-      marker-end="url(#arrow)"
-
     />
+
+    <line
+      x1="${x+sep}"
+      y1="${y0+7}"
+      x2="${x+sep}"
+      y2="${y0-8}"
+      stroke="currentColor"
+      stroke-width="1.6"
+    />
+
+  `;
+
+}
+
+else{
+
+  /*
+     Multiplicidad impar:
+     una marca
+  */
+
+  svg += `
+
+    <line
+      x1="${x}"
+      y1="${y0+7}"
+      x2="${x}"
+      y2="${y0-8}"
+      stroke="currentColor"
+      stroke-width="1.6"
+    />
+
+  `;
+
+}
 
   `;
 
@@ -2294,11 +2421,29 @@ function generateTikz(){
       xs[i];
 
 
-    t.push(
+  if(
+  evenMultiplicity[i]
+){
 
-      `  \\draw (${x},-0.12) -- (${x},0.12);`
+  t.push(
 
-    );
+    `  \\draw (${x-0.07},-0.12) -- (${x-0.07},0.12);`,
+
+    `  \\draw (${x+0.07},-0.12) -- (${x+0.07},0.12);`
+
+  );
+
+}
+
+else{
+
+  t.push(
+
+    `  \\draw (${x},-0.12) -- (${x},0.12);`
+
+  );
+
+}
 
 
     t.push(
