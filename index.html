@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
 
 <meta charset="utf-8">
@@ -19,21 +18,17 @@
 
 <script>
 window.MathJax = {
-
   tex: {
     packages: {
       '[+]': ['ams']
     }
   },
-
   svg: {
     fontCache: 'none'
   },
-
   startup: {
     typeset: false
   }
-
 };
 </script>
 
@@ -42,15 +37,11 @@ window.MathJax = {
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
 ></script>
 
-
 <style>
 
 :root{
 
   box-sizing:border-box;
-
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
 
   --bg:#eef1f7;
   --card:#ffffff;
@@ -70,47 +61,18 @@ window.MathJax = {
 }
 
 
-@media (prefers-color-scheme:dark){
-
-  :root:not([data-theme="light"]){
-
-    --bg:#12152a;
-    --card:#1a1f3a;
-    --text:#e6e9f7;
-    --mute:#98a0c4;
-    --line:#343b61;
-
-    --blue:#7f91ee;
-    --blue-dark:#687bd8;
-
-    --yellow:#5a4f20;
-    --yellow-border:#9d8841;
-    --yellow-text:#fff5c8;
-
-    --danger:#ff9a92;
-
-  }
-
-}
-
-
 *,
 *::before,
 *::after{
-
   box-sizing:inherit;
-
 }
 
 
 body{
 
   margin:0;
-
   background:var(--bg);
-
   color:var(--text);
-
   font:16px/1.5 Figtree,system-ui,sans-serif;
 
 }
@@ -118,237 +80,153 @@ body{
 
 main{
 
-  max-width:1050px;
-
+  max-width:1080px;
   margin:0 auto;
-
-  padding:20px 16px 40px;
-
+  padding:20px 16px 300px;
   display:grid;
-
   gap:16px;
 
 }
 
 
 h1{
-
   font-size:1.5rem;
-
   margin:0;
-
 }
 
 
 p.sub{
-
   margin:0;
-
   color:var(--mute);
-
 }
 
 
 section{
 
   background:var(--card);
-
   border:1px solid var(--line);
-
   border-radius:12px;
-
   padding:16px;
-
-  box-shadow:
-    0 1px 2px rgba(0,0,0,.03);
+  box-shadow:0 1px 2px rgba(0,0,0,.03);
 
 }
 
 
 h2{
-
   font-size:1rem;
-
   margin:0 0 10px;
-
 }
 
 
 label{
-
   display:block;
-
   font-weight:600;
-
   margin-bottom:4px;
-
 }
 
 
-/* =========================================================
-   CAMPOS BLANCOS
-   ========================================================= */
-
 input[type=text],
-select{
+select,
+textarea{
 
   width:100%;
-
   padding:9px 10px;
-
   border:1px solid var(--line);
-
   border-radius:7px;
-
   background:#ffffff;
-
   color:#1d2233;
-
   font:inherit;
 
 }
 
 
-@media (prefers-color-scheme:dark){
+textarea{
 
-  :root:not([data-theme="light"]) input[type=text],
-  :root:not([data-theme="light"]) select{
-
-    background:#ffffff;
-
-    color:#1d2233;
-
-  }
+  min-height:220px;
+  font:13px/1.5 ui-monospace,Consolas,monospace;
+  resize:vertical;
 
 }
 
 
 input[type=text]:hover,
-select:hover{
-
+select:hover,
+textarea:hover{
   border-color:var(--blue);
-
 }
 
 
 input:focus-visible,
 select:focus-visible,
+textarea:focus-visible,
 button:focus-visible{
-
   outline:2px solid var(--blue);
-
   outline-offset:2px;
-
 }
 
-
-/* =========================================================
-   AYUDAS / INSTRUCCIONES AMARILLAS
-   ========================================================= */
 
 .hint-highlight,
 .info{
 
-  margin-top:8px;
-
-  padding:9px 11px;
-
+  margin-top:0;
+  margin-bottom:10px;
+  padding:10px 12px;
   border:1px solid var(--yellow-border);
-
   border-radius:7px;
-
   background:var(--yellow);
-
   color:var(--yellow-text);
-
   font-size:.875rem;
-
   line-height:1.55;
-
-}
-
-
-.info{
-
-  margin-top:10px;
 
 }
 
 
 .hint-highlight code,
 .info code{
-
   font-family:ui-monospace,Consolas,monospace;
-
 }
 
 
 .grid{
 
   display:grid;
-
   gap:10px;
-
-  grid-template-columns:
-    repeat(
-      auto-fill,
-      minmax(230px,1fr)
-    );
+  grid-template-columns:repeat(auto-fill,minmax(245px,1fr));
 
 }
 
 
-/* =========================================================
-   TARJETAS BLANCAS
-   ========================================================= */
-
 .cell{
 
   border:1px solid var(--line);
-
   border-radius:8px;
-
   padding:10px;
-
   display:grid;
-
-  gap:7px;
-
+  gap:8px;
   background:#ffffff;
-
   color:#1d2233;
 
 }
 
 
 .cell b{
-
   font-weight:600;
-
 }
 
 
-.cell code{
+.point-label-visible,
+.interval-label-visible{
 
-  font-family:ui-monospace,Consolas,monospace;
-
-  font-size:.84rem;
-
-  overflow-wrap:anywhere;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:1rem;
 
 }
 
-
-/* =========================================================
-   BOTONES RÁPIDOS
-   ========================================================= */
 
 .quick{
 
   display:flex;
-
   gap:4px;
-
   flex-wrap:wrap;
 
 }
@@ -357,21 +235,13 @@ button:focus-visible{
 .quick button{
 
   min-width:42px;
-
   padding:5px 8px;
-
   border:1px solid var(--line);
-
   background:#ffffff;
-
   color:#1d2233;
-
   border-radius:6px;
-
   font:inherit;
-
   cursor:pointer;
-
   transition:
     background .15s ease,
     border-color .15s ease,
@@ -383,29 +253,20 @@ button:focus-visible{
 .quick button:hover{
 
   background:#f2f4f8;
-
   border-color:var(--blue);
 
 }
 
 
 .quick button:active{
-
   transform:translateY(1px);
-
 }
 
-
-/* =========================================================
-   SG FIJO
-   ========================================================= */
 
 .sg-input-row{
 
   display:flex;
-
   align-items:stretch;
-
   gap:8px;
 
 }
@@ -414,104 +275,32 @@ button:focus-visible{
 .sg-fixed{
 
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   min-width:62px;
-
   padding:8px 12px;
-
   border:1px solid var(--line);
-
   border-radius:7px;
-
   background:#ffffff;
-
   color:#1d2233;
-
   font-family:Georgia,"Times New Roman",serif;
-
   font-weight:600;
-
   font-size:1.05rem;
 
 }
 
 
 .sg-input-row input{
-
   flex:1;
-
-}
-
-
-/* =========================================================
-   VISTA PREVIA
-   ========================================================= */
-
-.prev{
-
-  overflow-x:auto;
-
-  min-height:160px;
-
-  padding:8px 0;
-
-}
-
-
-svg{
-
-  display:block;
-
-  margin:0 auto;
-
-  max-width:none;
-
-  color:var(--text);
-
-}
-
-
-/* =========================================================
-   CÓDIGO LATEX
-   ========================================================= */
-
-textarea{
-
-  width:100%;
-
-  min-height:220px;
-
-  padding:10px;
-
-  border:1px solid var(--line);
-
-  border-radius:7px;
-
-  background:#ffffff;
-
-  color:#1d2233;
-
-  font:13px/1.5 ui-monospace,Consolas,monospace;
-
-  resize:vertical;
-
 }
 
 
 .row{
 
   display:flex;
-
   gap:12px;
-
   align-items:center;
-
   flex-wrap:wrap;
-
   margin-top:8px;
 
 }
@@ -520,40 +309,24 @@ textarea{
 .row label{
 
   display:inline-flex;
-
   gap:6px;
-
   align-items:center;
-
   font-weight:400;
-
   margin:0;
 
 }
 
 
-/* =========================================================
-   BOTONES PRINCIPALES
-   ========================================================= */
-
 .btn{
 
   padding:8px 16px;
-
   border:0;
-
   border-radius:7px;
-
   background:var(--blue);
-
   color:#ffffff;
-
   font:inherit;
-
   font-weight:600;
-
   cursor:pointer;
-
   transition:
     background .15s ease,
     transform .05s ease;
@@ -562,26 +335,96 @@ textarea{
 
 
 .btn:hover{
-
   background:var(--blue-dark);
-
 }
 
 
 .btn:active{
-
   transform:translateY(1px);
-
 }
 
 
 .err{
 
   color:var(--danger);
-
   font-size:.9rem;
-
   margin-top:6px;
+
+}
+
+
+.small-status{
+  font-size:.9rem;
+  color:var(--mute);
+}
+
+
+.mult-box{
+
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:400;
+  margin-top:2px;
+
+}
+
+
+.mult-box input[type=checkbox]{
+  width:auto;
+}
+
+
+.preview-dock{
+
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:1000;
+
+  background:#ffffff;
+  border-top:1px solid var(--line);
+  box-shadow:0 -4px 14px rgba(0,0,0,.10);
+
+}
+
+
+.preview-dock-inner{
+
+  max-width:1080px;
+  margin:0 auto;
+  padding:10px 16px 14px;
+
+}
+
+
+.preview-dock-title{
+
+  font-size:.95rem;
+  font-weight:600;
+  margin-bottom:8px;
+  color:var(--text);
+
+}
+
+
+.preview-scroll{
+
+  overflow-x:auto;
+  overflow-y:hidden;
+  min-height:150px;
+  background:#ffffff;
+
+}
+
+
+.preview-scroll svg{
+
+  display:block;
+  margin:0 auto;
+  max-width:none;
+  color:var(--text);
 
 }
 
@@ -589,30 +432,17 @@ textarea{
 
 </head>
 
-
 <body>
-
 
 <main>
 
-
   <div>
-
-    <h1>
-      Recta de signos
-    </h1>
-
+    <h1>Recta de signos</h1>
     <p class="sub">
       Generador de rectas de signos con LaTeX, SVG, PNG y TikZ.
     </p>
-
   </div>
 
-
-
-  <!-- =====================================================
-       EXPRESIÓN IZQUIERDA
-       ===================================================== -->
 
   <section>
 
@@ -620,13 +450,21 @@ textarea{
       Expresión
     </label>
 
+    <div class="hint-highlight">
+      Escribí solo la expresión en LaTeX, sin usar <code>$</code>.
+      Se agregará automáticamente <code>\operatorname{Sg}</code>.
+      Ejemplos:
+      <code>f'</code>,
+      <code>g(x)</code>,
+      <code>\frac{f}{g}</code>,
+      <code>\sin x</code>.
+    </div>
 
     <div class="sg-input-row">
 
       <div class="sg-fixed">
         Sg
       </div>
-
 
       <input
         type="text"
@@ -638,29 +476,8 @@ textarea{
 
     </div>
 
-
-    <div class="hint-highlight">
-
-      Escribe solo la expresión en LaTeX, sin usar
-      <code>$</code>.
-
-  
-
-      Ejemplos:
-      <code>f'</code>,
-      <code>g(x)</code>,
-      <code>\frac{f}{g}</code>,
-      <code>\sin x</code>.
-
-    </div>
-
   </section>
 
-
-
-  <!-- =====================================================
-       PUNTOS
-       ===================================================== -->
 
   <section>
 
@@ -668,6 +485,17 @@ textarea{
       Puntos de la recta
     </label>
 
+    <div class="info">
+      <strong>Importante:</strong>
+      todos los puntos se escriben en <strong>LaTeX</strong>, sin usar
+      los signos <code>$</code>.
+      Separá los puntos mediante punto y coma <code>;</code>.
+      Los puntos se mostrarán <strong>exactamente en el orden en que los ingreses</strong>.
+      No se realiza ningún ordenamiento automático.
+      <br><br>
+      Ejemplo:
+      <code>\alpha ; \frac{\pi}{2} ; \ln 3 ; \sqrt{5}</code>
+    </div>
 
     <input
       type="text"
@@ -676,34 +504,6 @@ textarea{
       autocomplete="off"
       spellcheck="false"
     >
-
-
-    <div class="info">
-
-      <strong>Importante:</strong>
-
-      todos los puntos se escriben en
-      <strong>LaTeX</strong>, sin usar los signos
-      <code>$</code>.
-
-      Separa los puntos mediante punto y coma
-      <code>;</code>.
-
-      Los puntos se mostrarán
-      <strong>exactamente en el orden en que los ingreses</strong>.
-
-      No se realiza ningún ordenamiento automático.
-
-      <br><br>
-
-      Ejemplo:
-
-      <code>
-        \alpha ; \frac{\pi}{2} ; \ln 3 ; \sqrt{5}
-      </code>
-
-    </div>
-
 
     <div
       class="err"
@@ -714,20 +514,13 @@ textarea{
   </section>
 
 
-
-  <!-- =====================================================
-       INTERVALOS
-       ===================================================== -->
-
   <section>
 
     <h2>
       Expresión en cada intervalo
     </h2>
 
-
     <div class="hint-highlight">
-
       Cada intervalo admite cualquier código LaTeX:
       <code>+</code>,
       <code>-</code>,
@@ -735,23 +528,15 @@ textarea{
       <code>\leq 0</code>,
       <code>\sin x</code>,
       etc.
-
     </div>
-
 
     <div
       class="grid"
       id="intervals"
-      style="margin-top:10px"
     ></div>
 
   </section>
 
-
-
-  <!-- =====================================================
-       SOBRE LOS PUNTOS
-       ===================================================== -->
 
   <section>
 
@@ -759,46 +544,29 @@ textarea{
       Expresión sobre cada punto
     </h2>
 
-
     <div class="hint-highlight">
-
       También son campos LaTeX libres.
-
       Ejemplos:
       <code>0</code>,
       <code>\nexists</code>,
       <code>+\infty</code>,
       <code>f'(\alpha)</code>.
-
+      Además, si activás <strong>Multiplicidad par</strong>, el punto se dibuja con dos rayitas verticales.
     </div>
-
 
     <div
       class="grid"
       id="tops"
-      style="margin-top:10px"
     ></div>
 
   </section>
 
 
-
-  <!-- =====================================================
-       VISTA PREVIA
-       ===================================================== -->
-
   <section>
 
     <h2>
-      Vista previa
+      Descarga y código LaTeX
     </h2>
-
-
-    <div
-      class="prev"
-      id="prev"
-    ></div>
-
 
     <div class="row">
 
@@ -809,7 +577,6 @@ textarea{
         Descargar PNG
       </button>
 
-
       <button
         class="btn"
         id="dlsvg"
@@ -817,34 +584,19 @@ textarea{
         Descargar SVG
       </button>
 
-
       <span
+        class="small-status"
         id="dlmsg"
         role="status"
       ></span>
 
     </div>
 
-  </section>
-
-
-
-  <!-- =====================================================
-       CÓDIGO LATEX
-       ===================================================== -->
-
-  <section>
-
-    <h2>
-      Código LaTeX
-    </h2>
-
-
     <textarea
       id="code"
       readonly
+      style="margin-top:12px"
     ></textarea>
-
 
     <div class="row">
 
@@ -855,20 +607,16 @@ textarea{
         Copiar código
       </button>
 
-
       <label>
-
         <input
           type="checkbox"
           id="full"
         >
-
         Documento completo (standalone)
-
       </label>
 
-
       <span
+        class="small-status"
         id="msg"
         role="status"
       ></span>
@@ -877,60 +625,54 @@ textarea{
 
   </section>
 
-
 </main>
 
 
+<div class="preview-dock">
+
+  <div class="preview-dock-inner">
+
+    <div class="preview-dock-title">
+      Vista previa
+    </div>
+
+    <div
+      class="preview-scroll"
+      id="prev"
+    ></div>
+
+  </div>
+
+</div>
+
 
 <script>
-
 
 const $ =
   id =>
     document.getElementById(id);
 
 
-
 let points = [];
-
 let intervalValues = [];
-
 let topValues = [];
-
-/* true = raíz de multiplicidad par */
 let evenMultiplicity = [];
-
 let lastSvg = null;
+let renderVersion = 0;
 
-
-
-/* =========================================================
-   LEER PUNTOS
-   ========================================================= */
 
 function readPoints(){
 
   return $('points')
     .value
-
     .split(';')
-
     .map(
-      s =>
-        s.trim()
+      s => s.trim()
     )
-
-    .filter(
-      Boolean
-    );
+    .filter(Boolean);
 
 }
 
-
-
-/* =========================================================
-   PREPARAR ESTADO
-   ========================================================= */
 
 function prepareState(){
 
@@ -938,9 +680,7 @@ function prepareState(){
     readPoints();
 
 
-  if(
-    points.length === 0
-  ){
+  if(points.length === 0){
 
     $('err').textContent =
       'Ingresá al menos un punto.';
@@ -954,70 +694,45 @@ function prepareState(){
     '';
 
 
-  while(
-    intervalValues.length
-    <
-    points.length + 1
-  ){
+  while(intervalValues.length < points.length + 1){
 
     const i =
       intervalValues.length;
 
-
     intervalValues.push(
-      i % 2 === 0
-      ?
-      '+'
-      :
-      '-'
+      i % 2 === 0 ? '+' : '-'
     );
 
   }
-
 
   intervalValues.length =
     points.length + 1;
 
 
-  while(
-    topValues.length
-    <
-    points.length
-  ){
+  while(topValues.length < points.length){
 
-    topValues.push(
-      '0'
-    );
+    topValues.push('0');
 
   }
 
-
   topValues.length =
     points.length;
-while(
-  evenMultiplicity.length
-  <
-  points.length
-){
 
-  evenMultiplicity.push(
-    false
-  );
 
-}
+  while(evenMultiplicity.length < points.length){
 
-evenMultiplicity.length =
-  points.length;
+    evenMultiplicity.push(false);
+
+  }
+
+  evenMultiplicity.length =
+    points.length;
+
 
   return true;
 
 }
 
-
-
-/* =========================================================
-   BOTÓN RÁPIDO
-   ========================================================= */
 
 function quickButton(
   label,
@@ -1026,619 +741,298 @@ function quickButton(
 ){
 
   const b =
-    document.createElement(
-      'button'
-    );
-
+    document.createElement('button');
 
   b.type =
     'button';
 
-
   b.textContent =
     label;
 
-
   b.onclick =
-    ()=>{
-
-      action(
-        value
-      );
-
-    };
-
+    ()=> action(value);
 
   return b;
 
 }
 
 
-
-/* =========================================================
-   TEXTO VISIBLE PARA NOMBRE DEL INTERVALO
-   ========================================================= */
-
 function visiblePointLabel(tex){
 
   return String(tex)
 
-    .replace(
-      /\\infty/g,
-      '∞'
-    )
-
-    .replace(
-      /\\pi/g,
-      'π'
-    )
-
-    .replace(
-      /\\alpha/g,
-      'α'
-    )
-
-    .replace(
-      /\\beta/g,
-      'β'
-    )
-
-    .replace(
-      /\\gamma/g,
-      'γ'
-    )
-
-    .replace(
-      /\\delta/g,
-      'δ'
-    );
+    .replace(/\\infty/g,'∞')
+    .replace(/\\pi/g,'π')
+    .replace(/\\alpha/g,'α')
+    .replace(/\\beta/g,'β')
+    .replace(/\\gamma/g,'γ')
+    .replace(/\\delta/g,'δ')
+    .replace(/\\theta/g,'θ')
+    .replace(/\\lambda/g,'λ')
+    .replace(/\\mu/g,'μ')
+    .replace(/\\omega/g,'ω');
 
 }
 
 
-
-/* =========================================================
-   CONSTRUIR CONTROLES
-   ========================================================= */
-
 function buildControls(){
 
-  if(
-    !prepareState()
-  ){
+  if(!prepareState()){
 
-    $('intervals').innerHTML =
-      '';
-
-    $('tops').innerHTML =
-      '';
-
+    $('intervals').innerHTML = '';
+    $('tops').innerHTML = '';
     return;
 
   }
 
 
-
-/* =========================================================
-   INTERVALOS
-   ========================================================= */
-
   const I =
     $('intervals');
-
 
   I.innerHTML =
     '';
 
 
-  for(
-    let i=0;
-    i<=points.length;
-    i++
-  ){
-
+  for(let i=0; i<=points.length; i++){
 
     const left =
       i === 0
-      ?
-      '−∞'
-      :
-      visiblePointLabel(
-        points[i-1]
-      );
-
+      ? '−∞'
+      : visiblePointLabel(points[i-1]);
 
     const right =
       i === points.length
-      ?
-      '+∞'
-      :
-      visiblePointLabel(
-        points[i]
-      );
+      ? '+∞'
+      : visiblePointLabel(points[i]);
 
 
     const card =
-      document.createElement(
-        'div'
-      );
-
+      document.createElement('div');
 
     card.className =
       'cell';
 
 
     const title =
-      document.createElement(
-        'b'
-      );
-
+      document.createElement('b');
 
     title.textContent =
       `Intervalo ${i+1}`;
 
+    card.appendChild(title);
 
-    card.appendChild(
-      title
-    );
-/* ---------------------------------------------------------
-   MULTIPLICIDAD PAR
-   --------------------------------------------------------- */
-
-const multLabel =
-  document.createElement(
-    'label'
-  );
-
-
-multLabel.style.display =
-  'flex';
-
-
-multLabel.style.alignItems =
-  'center';
-
-
-multLabel.style.gap =
-  '7px';
-
-
-multLabel.style.marginTop =
-  '4px';
-
-
-multLabel.style.fontWeight =
-  '400';
-
-
-multLabel.style.cursor =
-  'pointer';
-
-
-const multCheck =
-  document.createElement(
-    'input'
-  );
-
-
-multCheck.type =
-  'checkbox';
-
-
-multCheck.checked =
-  evenMultiplicity[i];
-
-
-multCheck.onchange =
-  ()=>{
-
-    evenMultiplicity[i] =
-      multCheck.checked;
-
-
-    render();
-
-  };
-
-
-multLabel.appendChild(
-  multCheck
-);
-
-
-multLabel.appendChild(
-  document.createTextNode(
-    'Multiplicidad par'
-  )
-);
-
-
-card.appendChild(
-  multLabel
-);
-
-/* ---------------------------------------------------------
-   NOMBRE VISIBLE DEL INTERVALO
-   --------------------------------------------------------- */
 
     const literal =
-      document.createElement(
-        'div'
-      );
+      document.createElement('div');
 
+    literal.className =
+      'interval-label-visible';
 
     literal.textContent =
       `(${left} ; ${right})`;
 
+    card.appendChild(literal);
 
-    literal.style.fontFamily =
-      'Georgia, "Times New Roman", serif';
-
-
-    literal.style.fontSize =
-      '1rem';
-
-
-    card.appendChild(
-      literal
-    );
-
-
-
-/* ---------------------------------------------------------
-   CAMPO LATEX
-   --------------------------------------------------------- */
 
     const input =
-      document.createElement(
-        'input'
-      );
-
+      document.createElement('input');
 
     input.type =
       'text';
 
-
     input.spellcheck =
       false;
-
 
     input.value =
       intervalValues[i];
 
-
     input.placeholder =
       'LaTeX';
 
-
     input.oninput =
       ()=>{
-
-        intervalValues[i] =
-          input.value;
-
-
+        intervalValues[i] = input.value;
         render();
-
       };
 
+    card.appendChild(input);
 
-    card.appendChild(
-      input
-    );
-
-
-
-/* ---------------------------------------------------------
-   BOTONES RÁPIDOS
-   --------------------------------------------------------- */
 
     const quick =
-      document.createElement(
-        'div'
-      );
-
+      document.createElement('div');
 
     quick.className =
       'quick';
 
 
     quick.appendChild(
-
-      quickButton(
-        '+',
-        '+',
-        v=>{
-
-          intervalValues[i] =
-            v;
-
-          input.value =
-            v;
-
-          render();
-
-        }
-      )
-
+      quickButton('+','+',v=>{
+        intervalValues[i] = v;
+        input.value = v;
+        render();
+      })
     );
-
 
     quick.appendChild(
-
-      quickButton(
-        '−',
-        '-',
-        v=>{
-
-          intervalValues[i] =
-            v;
-
-          input.value =
-            v;
-
-          render();
-
-        }
-      )
-
+      quickButton('−','-',v=>{
+        intervalValues[i] = v;
+        input.value = v;
+        render();
+      })
     );
-
 
     quick.appendChild(
-
-      quickButton(
-        '∄',
-        '\\nexists',
-        v=>{
-
-          intervalValues[i] =
-            v;
-
-          input.value =
-            v;
-
-          render();
-
-        }
-      )
-
+      quickButton('∄','\\nexists',v=>{
+        intervalValues[i] = v;
+        input.value = v;
+        render();
+      })
     );
-
 
     quick.appendChild(
-
-      quickButton(
-        'vacío',
-        '',
-        v=>{
-
-          intervalValues[i] =
-            v;
-
-          input.value =
-            v;
-
-          render();
-
-        }
-      )
-
+      quickButton('vacío','',v=>{
+        intervalValues[i] = v;
+        input.value = v;
+        render();
+      })
     );
 
+    card.appendChild(quick);
 
-    card.appendChild(
-      quick
-    );
-
-
-    I.appendChild(
-      card
-    );
+    I.appendChild(card);
 
   }
 
 
-
-/* =========================================================
-   SOBRE LOS PUNTOS
-   ========================================================= */
-
   const T =
     $('tops');
-
 
   T.innerHTML =
     '';
 
 
-  points.forEach(
+  points.forEach((point,i)=>{
 
-    (point,i)=>{
+    const card =
+      document.createElement('div');
 
+    card.className =
+      'cell';
 
-      const card =
-        document.createElement(
-          'div'
-        );
 
+    const title =
+      document.createElement('b');
 
-      card.className =
-        'cell';
+    title.textContent =
+      `Punto ${i+1}`;
 
+    card.appendChild(title);
 
-      const title =
-        document.createElement(
-          'b'
-        );
 
+    const literal =
+      document.createElement('div');
 
-      title.textContent =
-        `Punto ${i+1}`;
+    literal.className =
+      'point-label-visible';
 
+    literal.textContent =
+      visiblePointLabel(point);
 
-      card.appendChild(
-        title
-      );
+    card.appendChild(literal);
 
 
-      const literal =
-        document.createElement(
-          'div'
-        );
+    const input =
+      document.createElement('input');
 
+    input.type =
+      'text';
 
-      literal.textContent =
-        visiblePointLabel(
-          point
-        );
+    input.spellcheck =
+      false;
 
+    input.value =
+      topValues[i];
 
-      literal.style.fontFamily =
-        'Georgia, "Times New Roman", serif';
+    input.placeholder =
+      'LaTeX';
 
+    input.oninput =
+      ()=>{
+        topValues[i] = input.value;
+        render();
+      };
 
-      literal.style.fontSize =
-        '1rem';
+    card.appendChild(input);
 
 
-      card.appendChild(
-        literal
-      );
+    const multLabel =
+      document.createElement('label');
 
+    multLabel.className =
+      'mult-box';
 
-      const input =
-        document.createElement(
-          'input'
-        );
 
+    const multCheck =
+      document.createElement('input');
 
-      input.type =
-        'text';
+    multCheck.type =
+      'checkbox';
 
+    multCheck.checked =
+      evenMultiplicity[i];
 
-      input.spellcheck =
-        false;
+    multCheck.onchange =
+      ()=>{
+        evenMultiplicity[i] = multCheck.checked;
+        render();
+      };
 
+    multLabel.appendChild(multCheck);
+    multLabel.appendChild(
+      document.createTextNode('Multiplicidad par')
+    );
 
-      input.value =
-        topValues[i];
+    card.appendChild(multLabel);
 
 
-      input.placeholder =
-        'LaTeX';
+    const quick =
+      document.createElement('div');
 
+    quick.className =
+      'quick';
 
-      input.oninput =
-        ()=>{
+    quick.appendChild(
+      quickButton('0','0',v=>{
+        topValues[i] = v;
+        input.value = v;
+        render();
+      })
+    );
 
-          topValues[i] =
-            input.value;
-
-
-          render();
-
-        };
-
-
-      card.appendChild(
-        input
-      );
-
-
-      const quick =
-        document.createElement(
-          'div'
-        );
-
-
-      quick.className =
-        'quick';
-
-
-      quick.appendChild(
-
-        quickButton(
-          '0',
-          '0',
-          v=>{
-
-            topValues[i] =
-              v;
-
-            input.value =
-              v;
-
-            render();
-
-          }
-        )
-
-      );
-
-
-      quick.appendChild(
-
-        quickButton(
-          '∄',
-          '\\nexists',
-          v=>{
-
-            topValues[i] =
-              v;
-
-            input.value =
-              v;
-
-            render();
-
-          }
-        )
-
-      );
-
-
-      quick.appendChild(
-
-        quickButton(
-          'vacío',
-          '',
-          v=>{
-
-            topValues[i] =
-              v;
-
-            input.value =
-              v;
-
-            render();
-
-          }
-        )
-
-      );
-
-
-      card.appendChild(
-        quick
-      );
-
-
-      T.appendChild(
-        card
-      );
-
-    }
-
-  );
+    quick.appendChild(
+      quickButton('∄','\\nexists',v=>{
+        topValues[i] = v;
+        input.value = v;
+        render();
+      })
+    );
+
+    quick.appendChild(
+      quickButton('vacío','',v=>{
+        topValues[i] = v;
+        input.value = v;
+        render();
+      })
+    );
+
+    card.appendChild(quick);
+
+    T.appendChild(card);
+
+  });
 
 }
 
-
-
-/* =========================================================
-   LATEX → SVG
-   ========================================================= */
 
 async function mathFragment(
   tex,
@@ -1648,174 +1042,90 @@ async function mathFragment(
   align='center'
 ){
 
-  if(
-    !tex
-    ||
-    !String(tex).trim()
-  ){
-
+  if(!tex || !String(tex).trim()){
     return '';
-
   }
 
 
   try{
 
-
     await MathJax.startup.promise;
-
 
     const container =
       await MathJax.tex2svgPromise(
-
         String(tex),
-
-        {
-          display:false
-        }
-
+        { display:false }
       );
-
 
     const source =
-      container.querySelector(
-        'svg'
-      );
+      container.querySelector('svg');
 
-
-    if(
-      !source
-    ){
-
+    if(!source){
       return '';
-
     }
 
 
     const viewBox =
       source
-        .getAttribute(
-          'viewBox'
-        )
+        .getAttribute('viewBox')
         .trim()
         .split(/\s+/)
         .map(Number);
 
+    const vbX = viewBox[0];
+    const vbY = viewBox[1];
+    const vbW = viewBox[2];
+    const vbH = viewBox[3];
 
-    const vbX =
-      viewBox[0];
-
-
-    const vbY =
-      viewBox[1];
-
-
-    const vbW =
-      viewBox[2];
-
-
-    const vbH =
-      viewBox[3];
-
-
-    if(
-      !vbW
-      ||
-      !vbH
-    ){
-
+    if(!vbW || !vbH){
       return '';
-
     }
 
 
     const width =
-      height
-      *
-      vbW
-      /
-      vbH;
-
+      height * vbW / vbH;
 
     let drawX;
 
-
-    if(
-      align === 'right'
-    ){
-
-      drawX =
-        x - width;
-
+    if(align === 'right'){
+      drawX = x - width;
+    }else{
+      drawX = x - width/2;
     }
-
-    else{
-
-      drawX =
-        x - width/2;
-
-    }
-
 
     const drawY =
       y - height/2;
-
 
     const inside =
       source.innerHTML;
 
 
     return `
-
       <svg
-
         x="${drawX}"
-
         y="${drawY}"
-
         width="${width}"
-
         height="${height}"
-
         viewBox="${vbX} ${vbY} ${vbW} ${vbH}"
-
         preserveAspectRatio="xMidYMid meet"
-
         overflow="visible"
-
         color="currentColor"
-
       >
-
         ${inside}
-
       </svg>
-
     `;
 
   }
 
-
   catch(e){
 
-    console.error(
-      'Error LaTeX:',
-      tex,
-      e
-    );
-
-
+    console.error('Error LaTeX:', tex, e);
     return '';
 
   }
 
 }
 
-
-
-/* =========================================================
-   SG + EXPRESIÓN
-   ========================================================= */
 
 function fullLeftExpression(){
 
@@ -1824,43 +1134,25 @@ function fullLeftExpression(){
       .value
       .trim();
 
-
-  if(
-    expr
-  ){
-
+  if(expr){
     return `\\operatorname{Sg}\\,${expr}`;
-
   }
-
 
   return '\\operatorname{Sg}';
 
 }
 
 
-
-/* =========================================================
-   RENDER PRINCIPAL
-   ========================================================= */
-
 async function render(){
-
 
   const myVersion =
     ++renderVersion;
 
 
-  if(
-    !prepareState()
-  ){
+  if(!prepareState()){
 
-    $('prev').innerHTML =
-      '';
-
-    $('code').value =
-      '';
-
+    $('prev').innerHTML = '';
+    $('code').value = '';
     return;
 
   }
@@ -1868,37 +1160,25 @@ async function render(){
 
   await MathJax.startup.promise;
 
-
-  if(
-    myVersion
-    !==
-    renderVersion
-  ){
-
+  if(myVersion !== renderVersion){
     return;
-
   }
 
 
   const n =
     points.length;
 
-
   const U =
     175;
-
 
   const LM =
     235;
 
-
   const RM =
     95;
 
-
   const y0 =
     95;
-
 
   const H =
     165;
@@ -1906,23 +1186,15 @@ async function render(){
 
   const xs =
     points.map(
-
       (_,i)=>
-        LM
-        +
-        U
-        +
-        i*U
-
+        LM + U + i*U
     );
 
 
   const lineEnd =
     n === 1
-    ?
-    LM + 2*U
-    :
-    xs[n-1] + U;
+    ? LM + 2*U
+    : xs[n-1] + U;
 
 
   const W =
@@ -1932,266 +1204,147 @@ async function render(){
   const centers =
     [];
 
-
   centers.push(
     LM + U/2
   );
 
-
-  for(
-    let i=1;
-    i<n;
-    i++
-  ){
+  for(let i=1; i<n; i++){
 
     centers.push(
-
-      (
-        xs[i-1]
-        +
-        xs[i]
-      )/2
-
+      (xs[i-1] + xs[i]) / 2
     );
 
   }
 
-
   centers.push(
-
-    xs[n-1]
-    +
-    U/2
-
+    xs[n-1] + U/2
   );
 
 
   let svg =
-
     `<svg
-
       xmlns="http://www.w3.org/2000/svg"
-
       width="${W}"
-
       height="${H}"
-
       viewBox="0 0 ${W} ${H}"
-
       role="img"
-
       aria-label="Recta de signos"
-
       color="currentColor"
-
     >`;
 
 
-
-/* =========================================================
-   FLECHA
-   ========================================================= */
-
   svg += `
-
     <defs>
-
       <marker
-
         id="arrow"
-
         markerWidth="10"
-
         markerHeight="10"
-
         refX="9"
-
         refY="3"
-
         orient="auto"
-
         markerUnits="strokeWidth"
-
       >
-
         <path
-
           d="M0,0 L0,6 L9,3 z"
-
           fill="currentColor"
-
         />
-
       </marker>
-
     </defs>
-
   `;
 
-
-
-/* =========================================================
-   EXPRESIÓN IZQUIERDA
-   ========================================================= */
 
   svg +=
     await mathFragment(
-
       fullLeftExpression(),
-
       LM - 18,
-
       y0,
-
       31,
-
       'right'
-
     );
 
 
-
-/* =========================================================
-   RECTA
-   ========================================================= */
-
- if(
-  evenMultiplicity[i]
-){
-
-  /*
-     Multiplicidad par:
-     dos marcas verticales próximas
-  */
-
-  const sep =
-    4;
-
-
   svg += `
-
     <line
-      x1="${x-sep}"
-      y1="${y0+7}"
-      x2="${x-sep}"
-      y2="${y0-8}"
+      x1="${LM}"
+      y1="${y0}"
+      x2="${lineEnd}"
+      y2="${y0}"
       stroke="currentColor"
       stroke-width="1.6"
+      marker-end="url(#arrow)"
     />
-
-    <line
-      x1="${x+sep}"
-      y1="${y0+7}"
-      x2="${x+sep}"
-      y2="${y0-8}"
-      stroke="currentColor"
-      stroke-width="1.6"
-    />
-
-  `;
-
-}
-
-else{
-
-  /*
-     Multiplicidad impar:
-     una marca
-  */
-
-  svg += `
-
-    <line
-      x1="${x}"
-      y1="${y0+7}"
-      x2="${x}"
-      y2="${y0-8}"
-      stroke="currentColor"
-      stroke-width="1.6"
-    />
-
-  `;
-
-}
-
   `;
 
 
-
-/* =========================================================
-   PUNTOS
-   ========================================================= */
-
-  for(
-    let i=0;
-    i<n;
-    i++
-  ){
-
+  for(let i=0; i<n; i++){
 
     const x =
       xs[i];
 
-
     const top =
-      topValues[i]
-        .trim();
+      topValues[i].trim();
 
 
-    svg += `
+    if(evenMultiplicity[i]){
 
-      <line
+      const sep = 4;
 
-        x1="${x}"
+      svg += `
+        <line
+          x1="${x-sep}"
+          y1="${y0+7}"
+          x2="${x-sep}"
+          y2="${y0-8}"
+          stroke="currentColor"
+          stroke-width="1.6"
+        />
+        <line
+          x1="${x+sep}"
+          y1="${y0+7}"
+          x2="${x+sep}"
+          y2="${y0-8}"
+          stroke="currentColor"
+          stroke-width="1.6"
+        />
+      `;
 
-        y1="${y0+7}"
+    }
 
-        x2="${x}"
+    else{
 
-        y2="${y0-8}"
+      svg += `
+        <line
+          x1="${x}"
+          y1="${y0+7}"
+          x2="${x}"
+          y2="${y0-8}"
+          stroke="currentColor"
+          stroke-width="1.6"
+        />
+      `;
 
-        stroke="currentColor"
-
-        stroke-width="1.6"
-
-      />
-
-    `;
+    }
 
 
     svg +=
       await mathFragment(
-
         points[i],
-
         x,
-
         y0 + 32,
-
         28,
-
         'center'
-
       );
 
 
-    if(
-      top
-    ){
+    if(top){
 
       svg +=
         await mathFragment(
-
           top,
-
           x,
-
           y0 - 31,
-
           29,
-
           'center'
-
         );
 
     }
@@ -2199,45 +1352,22 @@ else{
   }
 
 
-
-/* =========================================================
-   INTERVALOS
-   ========================================================= */
-
-  for(
-    let i=0;
-    i<intervalValues.length;
-    i++
-  ){
-
+  for(let i=0; i<intervalValues.length; i++){
 
     const tex =
-      intervalValues[i]
-        .trim();
+      intervalValues[i].trim();
 
-
-    if(
-      !tex
-    ){
-
+    if(!tex){
       continue;
-
     }
-
 
     svg +=
       await mathFragment(
-
         tex,
-
         centers[i],
-
         y0 - 31,
-
         29,
-
         'center'
-
       );
 
   }
@@ -2247,122 +1377,69 @@ else{
     '</svg>';
 
 
-  if(
-    myVersion
-    !==
-    renderVersion
-  ){
-
+  if(myVersion !== renderVersion){
     return;
-
   }
 
 
   lastSvg = {
-
     svg,
-
     w:W,
-
     h:H
-
   };
 
 
   $('prev').innerHTML =
     svg;
 
-
   generateTikz();
 
 }
 
 
-
-/* =========================================================
-   GENERAR TIKZ
-   ========================================================= */
-
 function generateTikz(){
-
 
   const n =
     points.length;
 
-
-  if(
-    !n
-  ){
-
-    $('code').value =
-      '';
-
+  if(!n){
+    $('code').value = '';
     return;
-
   }
 
 
   const X0 =
     2;
 
-
   const DX =
     3;
 
-
   const L =
-    X0
-    +
-    DX*(n-1)
-    +
-    2;
+    X0 + DX*(n-1) + 2;
 
 
   const xs =
     points.map(
-
       (_,i)=>
-        X0
-        +
-        DX*i
-
+        X0 + DX*i
     );
 
 
   const centers =
     [];
 
+  centers.push(1);
 
-  centers.push(
-    1
-  );
-
-
-  for(
-    let i=1;
-    i<n;
-    i++
-  ){
+  for(let i=1; i<n; i++){
 
     centers.push(
-
-      (
-        xs[i-1]
-        +
-        xs[i]
-      )/2
-
+      (xs[i-1] + xs[i]) / 2
     );
 
   }
 
-
   centers.push(
-
-    xs[n-1]
-    +
-    1
-
+    xs[n-1] + 1
   );
 
 
@@ -2370,22 +1447,14 @@ function generateTikz(){
     [];
 
 
-  if(
-    $('full').checked
-  ){
+  if($('full').checked){
 
     t.push(
-
       '\\documentclass[border=5pt]{standalone}',
-
       '\\usepackage{tikz}',
-
       '\\usepackage{amsmath}',
-
       '\\usepackage{amssymb}',
-
       '\\begin{document}'
-
     );
 
   }
@@ -2395,77 +1464,51 @@ function generateTikz(){
     '\\begin{tikzpicture}'
   );
 
-
   t.push(
-
     `  \\node[anchor=east] at (-0.25,0) {$${fullLeftExpression()}$};`
-
   );
-
 
   t.push(
-
     `  \\draw[->] (0,0) -- (${L},0);`
-
   );
 
 
-  for(
-    let i=0;
-    i<n;
-    i++
-  ){
-
+  for(let i=0; i<n; i++){
 
     const x =
       xs[i];
 
 
-  if(
-  evenMultiplicity[i]
-){
+    if(evenMultiplicity[i]){
 
-  t.push(
+      t.push(
+        `  \\draw (${(x-0.07).toFixed(2)},-0.12) -- (${(x-0.07).toFixed(2)},0.12);`,
+        `  \\draw (${(x+0.07).toFixed(2)},-0.12) -- (${(x+0.07).toFixed(2)},0.12);`
+      );
 
-    `  \\draw (${x-0.07},-0.12) -- (${x-0.07},0.12);`,
+    }
 
-    `  \\draw (${x+0.07},-0.12) -- (${x+0.07},0.12);`
+    else{
 
-  );
+      t.push(
+        `  \\draw (${x},-0.12) -- (${x},0.12);`
+      );
 
-}
-
-else{
-
-  t.push(
-
-    `  \\draw (${x},-0.12) -- (${x},0.12);`
-
-  );
-
-}
+    }
 
 
     t.push(
-
       `  \\node[below=2pt] at (${x},-0.12) {$${points[i]}$};`
-
     );
 
 
     const top =
-      topValues[i]
-        .trim();
+      topValues[i].trim();
 
-
-    if(
-      top
-    ){
+    if(top){
 
       t.push(
-
         `  \\node at (${x},0.5) {$${top}$};`
-
       );
 
     }
@@ -2473,31 +1516,17 @@ else{
   }
 
 
-  for(
-    let i=0;
-    i<intervalValues.length;
-    i++
-  ){
-
+  for(let i=0; i<intervalValues.length; i++){
 
     const tex =
-      intervalValues[i]
-        .trim();
+      intervalValues[i].trim();
 
-
-    if(
-      !tex
-    ){
-
+    if(!tex){
       continue;
-
     }
 
-
     t.push(
-
       `  \\node at (${centers[i]},0.5) {$${tex}$};`
-
     );
 
   }
@@ -2508,14 +1537,8 @@ else{
   );
 
 
-  if(
-    $('full').checked
-  ){
-
-    t.push(
-      '\\end{document}'
-    );
-
+  if($('full').checked){
+    t.push('\\end{document}');
   }
 
 
@@ -2525,64 +1548,35 @@ else{
 }
 
 
-
-/* =========================================================
-   ACTUALIZAR
-   ========================================================= */
-
 function updatePoints(){
 
   buildControls();
-
   render();
 
 }
 
 
-
-/* =========================================================
-   EVENTOS
-   ========================================================= */
-
 $('points').addEventListener(
-
   'input',
-
   updatePoints
-
 );
-
 
 $('leftExpr').addEventListener(
-
   'input',
-
   render
-
 );
-
 
 $('full').addEventListener(
-
   'change',
-
   generateTikz
-
 );
 
-
-
-/* =========================================================
-   COPIAR
-   ========================================================= */
 
 $('copy').onclick =
 async ()=>{
 
-
   const ta =
     $('code');
-
 
   try{
 
@@ -2592,98 +1586,54 @@ async ()=>{
 
   }
 
-
   catch(e){
 
     ta.select();
-
-    document.execCommand(
-      'copy'
-    );
+    document.execCommand('copy');
 
   }
-
 
   $('msg').textContent =
     'Copiado';
 
-
   setTimeout(
-
     ()=>{
-
-      $('msg').textContent =
-        '';
-
+      $('msg').textContent = '';
     },
-
     1800
-
   );
 
 };
 
 
-
-/* =========================================================
-   MENSAJES
-   ========================================================= */
-
 function note(t){
-
 
   $('dlmsg').textContent =
     t;
 
-
   setTimeout(
-
     ()=>{
-
-      $('dlmsg').textContent =
-        '';
-
+      $('dlmsg').textContent = '';
     },
-
     2500
-
   );
 
 }
 
-
-
-/* =========================================================
-   SVG EXPORTABLE
-   ========================================================= */
 
 function exportSvg(){
 
-
-  if(
-    !lastSvg
-  ){
-
+  if(!lastSvg){
     return '';
-
   }
 
-
   return lastSvg.svg.replace(
-
     /currentColor/g,
-
     '#000000'
-
   );
 
 }
 
-
-
-/* =========================================================
-   GUARDAR
-   ========================================================= */
 
 function save(
   filename,
@@ -2691,288 +1641,150 @@ function save(
   type
 ){
 
-
   try{
-
 
     let blob;
 
-
-    if(
-      data instanceof Blob
-    ){
-
-      blob =
-        data;
-
+    if(data instanceof Blob){
+      blob = data;
     }
-
-
     else{
-
-      blob =
-        new Blob(
-
-          [data],
-
-          {
-            type:
-              type
-          }
-
-        );
-
+      blob = new Blob(
+        [data],
+        { type:type }
+      );
     }
-
 
     const url =
-      URL.createObjectURL(
-        blob
-      );
-
+      URL.createObjectURL(blob);
 
     const a =
-      document.createElement(
-        'a'
-      );
-
+      document.createElement('a');
 
     a.href =
       url;
 
-
     a.download =
       filename;
 
-
-    document.body.appendChild(
-      a
-    );
-
-
+    document.body.appendChild(a);
     a.click();
-
-
     a.remove();
 
-
     setTimeout(
-
       ()=>{
-
-        URL.revokeObjectURL(
-          url
-        );
-
+        URL.revokeObjectURL(url);
       },
-
       1000
-
     );
 
-
-    note(
-      'Archivo descargado'
-    );
+    note('Archivo descargado');
 
   }
 
-
   catch(e){
 
-
-    console.error(
-      e
-    );
-
-
-    note(
-      'No se pudo descargar el archivo'
-    );
+    console.error(e);
+    note('No se pudo descargar el archivo');
 
   }
 
 }
 
 
-
-/* =========================================================
-   DESCARGAR SVG
-   ========================================================= */
-
 $('dlsvg').onclick =
 ()=>{
 
+  if(!lastSvg){
 
-  if(
-    !lastSvg
-  ){
-
-    note(
-      'No hay imagen para descargar'
-    );
-
-
+    note('No hay imagen para descargar');
     return;
 
   }
 
-
   save(
-
     'recta-de-signos.svg',
-
     exportSvg(),
-
     'image/svg+xml;charset=utf-8'
-
   );
 
 };
 
 
-
-/* =========================================================
-   DESCARGAR PNG
-   ========================================================= */
-
 $('dlpng').onclick =
 ()=>{
 
+  if(!lastSvg){
 
-  if(
-    !lastSvg
-  ){
-
-    note(
-      'No hay imagen para descargar'
-    );
-
-
+    note('No hay imagen para descargar');
     return;
 
   }
 
-
   const scale =
     3;
-
 
   const img =
     new Image();
 
-
   img.onload =
     ()=>{
 
-
       const canvas =
-        document.createElement(
-          'canvas'
-        );
-
+        document.createElement('canvas');
 
       canvas.width =
         lastSvg.w * scale;
 
-
       canvas.height =
         lastSvg.h * scale;
 
-
       const ctx =
-        canvas.getContext(
-          '2d'
-        );
-
+        canvas.getContext('2d');
 
       ctx.fillStyle =
         '#ffffff';
 
-
       ctx.fillRect(
-
         0,
-
         0,
-
         canvas.width,
-
         canvas.height
-
       );
-
 
       ctx.drawImage(
-
         img,
-
         0,
-
         0,
-
         canvas.width,
-
         canvas.height
-
       );
 
-
       canvas.toBlob(
-
         blob=>{
-
-
-          if(
-            !blob
-          ){
-
-            note(
-              'No se pudo generar el PNG'
-            );
-
-
+          if(!blob){
+            note('No se pudo generar el PNG');
             return;
-
           }
 
-
           save(
-
             'recta-de-signos.png',
-
             blob,
-
             'image/png'
-
           );
-
         },
-
         'image/png'
-
       );
 
     };
-
 
   img.onerror =
     ()=>{
-
-
-      note(
-        'No se pudo generar el PNG'
-      );
-
+      note('No se pudo generar el PNG');
     };
 
-
   img.src =
-
-    'data:image/svg+xml;charset=utf-8,'
-
-    +
-
+    'data:image/svg+xml;charset=utf-8,' +
     encodeURIComponent(
       exportSvg()
     );
@@ -2980,34 +1792,19 @@ $('dlpng').onclick =
 };
 
 
-
-/* =========================================================
-   INICIO
-   ========================================================= */
-
 window.addEventListener(
-
   'load',
-
   async ()=>{
-
 
     await MathJax.startup.promise;
 
-
     buildControls();
-
-
     render();
 
   }
-
 );
-
 
 </script>
 
-
 </body>
-
 </html>
