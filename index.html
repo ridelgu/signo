@@ -82,7 +82,7 @@ main{
 
   max-width:1080px;
   margin:0 auto;
-  padding:20px 16px 300px;
+  padding:20px 16px 240px;
   display:grid;
   gap:16px;
 
@@ -394,16 +394,16 @@ button:focus-visible{
 
   max-width:1080px;
   margin:0 auto;
-  padding:10px 16px 14px;
+  padding:6px 16px 8px;
 
 }
 
 
 .preview-dock-title{
 
-  font-size:.95rem;
+  font-size:.9rem;
   font-weight:600;
-  margin-bottom:8px;
+  margin-bottom:5px;
   color:var(--text);
 
 }
@@ -413,7 +413,7 @@ button:focus-visible{
 
   overflow-x:auto;
   overflow-y:hidden;
-  min-height:150px;
+  min-height:120px;
   background:#ffffff;
 
 }
@@ -425,6 +425,74 @@ button:focus-visible{
   margin:0 auto;
   max-width:none;
   color:var(--text);
+
+}
+
+
+/* =========================================================
+   ADAPTACIÓN A CELULARES
+   ========================================================= */
+
+@media (max-width:600px){
+
+  body{
+    font-size:15px;
+  }
+
+  main{
+    padding:
+      12px
+      10px
+      180px;
+    gap:12px;
+  }
+
+  section{
+    padding:12px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .sg-input-row{
+    gap:6px;
+  }
+
+  .sg-fixed{
+    min-width:52px;
+    padding:7px 9px;
+  }
+
+  .preview-dock-inner{
+    padding:5px 8px 7px;
+  }
+
+  .preview-dock-title{
+    font-size:.82rem;
+    margin-bottom:3px;
+  }
+
+  .preview-scroll{
+    min-height:100px;
+    overflow-x:hidden;
+    overflow-y:hidden;
+  }
+
+  .preview-scroll svg{
+    width:100%;
+    height:auto;
+    max-height:100px;
+  }
+
+  .row{
+    gap:8px;
+  }
+
+  .btn{
+    padding:7px 11px;
+    font-size:.9rem;
+  }
 
 }
 
@@ -451,8 +519,7 @@ button:focus-visible{
     </label>
 
     <div class="hint-highlight">
-      Escribí solo la expresión en LaTeX, sin usar <code>$</code>.
-      Se agregará automáticamente <code>\operatorname{Sg}</code>.
+      Escribe solo la expresión en LaTeX, sin usar <code>$</code>.
       Ejemplos:
       <code>f'</code>,
       <code>g(x)</code>,
@@ -489,7 +556,7 @@ button:focus-visible{
       <strong>Importante:</strong>
       todos los puntos se escriben en <strong>LaTeX</strong>, sin usar
       los signos <code>$</code>.
-      Separá los puntos mediante punto y coma <code>;</code>.
+      Separa los puntos mediante punto y coma <code>;</code>.
       Los puntos se mostrarán <strong>exactamente en el orden en que los ingreses</strong>.
       No se realiza ningún ordenamiento automático.
       <br><br>
@@ -551,7 +618,8 @@ button:focus-visible{
       <code>\nexists</code>,
       <code>+\infty</code>,
       <code>f'(\alpha)</code>.
-      Además, si activás <strong>Multiplicidad par</strong>, el punto se dibuja con dos rayitas verticales.
+      Si activas <strong>Multiplicidad par</strong>,
+      el punto se representa con dos rayitas verticales.
     </div>
 
     <div
@@ -988,6 +1056,7 @@ function buildControls(){
       };
 
     multLabel.appendChild(multCheck);
+
     multLabel.appendChild(
       document.createTextNode('Multiplicidad par')
     );
@@ -1000,6 +1069,7 @@ function buildControls(){
 
     quick.className =
       'quick';
+
 
     quick.appendChild(
       quickButton('0','0',v=>{
@@ -1089,7 +1159,8 @@ async function mathFragment(
 
     if(align === 'right'){
       drawX = x - width;
-    }else{
+    }
+    else{
       drawX = x - width/2;
     }
 
@@ -1287,7 +1358,8 @@ async function render(){
 
     if(evenMultiplicity[i]){
 
-      const sep = 4;
+      const sep =
+        4;
 
       svg += `
         <line
@@ -1298,6 +1370,7 @@ async function render(){
           stroke="currentColor"
           stroke-width="1.6"
         />
+
         <line
           x1="${x+sep}"
           y1="${y0+7}"
@@ -1464,9 +1537,11 @@ function generateTikz(){
     '\\begin{tikzpicture}'
   );
 
+
   t.push(
     `  \\node[anchor=east] at (-0.25,0) {$${fullLeftExpression()}$};`
   );
+
 
   t.push(
     `  \\draw[->] (0,0) -- (${L},0);`
@@ -1481,9 +1556,15 @@ function generateTikz(){
 
     if(evenMultiplicity[i]){
 
+      const leftX =
+        (x - 0.07).toFixed(2);
+
+      const rightX =
+        (x + 0.07).toFixed(2);
+
       t.push(
-        `  \\draw (${(x-0.07).toFixed(2)},-0.12) -- (${(x-0.07).toFixed(2)},0.12);`,
-        `  \\draw (${(x+0.07).toFixed(2)},-0.12) -- (${(x+0.07).toFixed(2)},0.12);`
+        `  \\draw (${leftX},-0.12) -- (${leftX},0.12);`,
+        `  \\draw (${rightX},-0.12) -- (${rightX},0.12);`
       );
 
     }
@@ -1561,10 +1642,12 @@ $('points').addEventListener(
   updatePoints
 );
 
+
 $('leftExpr').addEventListener(
   'input',
   render
 );
+
 
 $('full').addEventListener(
   'change',
@@ -1593,8 +1676,10 @@ async ()=>{
 
   }
 
+
   $('msg').textContent =
     'Copiado';
+
 
   setTimeout(
     ()=>{
@@ -1655,11 +1740,14 @@ function save(
       );
     }
 
+
     const url =
       URL.createObjectURL(blob);
 
+
     const a =
       document.createElement('a');
+
 
     a.href =
       url;
@@ -1667,9 +1755,13 @@ function save(
     a.download =
       filename;
 
+
     document.body.appendChild(a);
+
     a.click();
+
     a.remove();
+
 
     setTimeout(
       ()=>{
@@ -1678,6 +1770,7 @@ function save(
       1000
     );
 
+
     note('Archivo descargado');
 
   }
@@ -1685,7 +1778,10 @@ function save(
   catch(e){
 
     console.error(e);
-    note('No se pudo descargar el archivo');
+
+    note(
+      'No se pudo descargar el archivo'
+    );
 
   }
 
@@ -1697,7 +1793,10 @@ $('dlsvg').onclick =
 
   if(!lastSvg){
 
-    note('No hay imagen para descargar');
+    note(
+      'No hay imagen para descargar'
+    );
+
     return;
 
   }
@@ -1716,16 +1815,22 @@ $('dlpng').onclick =
 
   if(!lastSvg){
 
-    note('No hay imagen para descargar');
+    note(
+      'No hay imagen para descargar'
+    );
+
     return;
 
   }
 
+
   const scale =
     3;
 
+
   const img =
     new Image();
+
 
   img.onload =
     ()=>{
@@ -1733,17 +1838,21 @@ $('dlpng').onclick =
       const canvas =
         document.createElement('canvas');
 
+
       canvas.width =
         lastSvg.w * scale;
 
       canvas.height =
         lastSvg.h * scale;
 
+
       const ctx =
         canvas.getContext('2d');
 
+
       ctx.fillStyle =
         '#ffffff';
+
 
       ctx.fillRect(
         0,
@@ -1751,6 +1860,7 @@ $('dlpng').onclick =
         canvas.width,
         canvas.height
       );
+
 
       ctx.drawImage(
         img,
@@ -1760,28 +1870,43 @@ $('dlpng').onclick =
         canvas.height
       );
 
+
       canvas.toBlob(
         blob=>{
+
           if(!blob){
-            note('No se pudo generar el PNG');
+
+            note(
+              'No se pudo generar el PNG'
+            );
+
             return;
+
           }
+
 
           save(
             'recta-de-signos.png',
             blob,
             'image/png'
           );
+
         },
         'image/png'
       );
 
     };
 
+
   img.onerror =
     ()=>{
-      note('No se pudo generar el PNG');
+
+      note(
+        'No se pudo generar el PNG'
+      );
+
     };
+
 
   img.src =
     'data:image/svg+xml;charset=utf-8,' +
@@ -1799,6 +1924,7 @@ window.addEventListener(
     await MathJax.startup.promise;
 
     buildControls();
+
     render();
 
   }
