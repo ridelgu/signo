@@ -40,7 +40,6 @@ window.MathJax = {
 <style>
 
 :root{
-
   box-sizing:border-box;
 
   --bg:#eef1f7;
@@ -57,7 +56,6 @@ window.MathJax = {
   --yellow-text:#3b3420;
 
   --danger:#b42318;
-
 }
 
 
@@ -69,23 +67,19 @@ window.MathJax = {
 
 
 body{
-
   margin:0;
   background:var(--bg);
   color:var(--text);
   font:16px/1.5 Figtree,system-ui,sans-serif;
-
 }
 
 
 main{
-
   max-width:1080px;
   margin:0 auto;
   padding:20px 16px 240px;
   display:grid;
   gap:16px;
-
 }
 
 
@@ -102,13 +96,11 @@ p.sub{
 
 
 section{
-
   background:var(--card);
   border:1px solid var(--line);
   border-radius:12px;
   padding:16px;
   box-shadow:0 1px 2px rgba(0,0,0,.03);
-
 }
 
 
@@ -128,7 +120,6 @@ label{
 input[type=text],
 select,
 textarea{
-
   width:100%;
   padding:9px 10px;
   border:1px solid var(--line);
@@ -136,16 +127,13 @@ textarea{
   background:#ffffff;
   color:#1d2233;
   font:inherit;
-
 }
 
 
 textarea{
-
   min-height:220px;
   font:13px/1.5 ui-monospace,Consolas,monospace;
   resize:vertical;
-
 }
 
 
@@ -167,7 +155,6 @@ button:focus-visible{
 
 .hint-highlight,
 .info{
-
   margin-top:0;
   margin-bottom:10px;
   padding:10px 12px;
@@ -177,7 +164,6 @@ button:focus-visible{
   color:var(--yellow-text);
   font-size:.875rem;
   line-height:1.55;
-
 }
 
 
@@ -188,16 +174,13 @@ button:focus-visible{
 
 
 .grid{
-
   display:grid;
   gap:10px;
   grid-template-columns:repeat(auto-fill,minmax(245px,1fr));
-
 }
 
 
 .cell{
-
   border:1px solid var(--line);
   border-radius:8px;
   padding:10px;
@@ -205,7 +188,6 @@ button:focus-visible{
   gap:8px;
   background:#ffffff;
   color:#1d2233;
-
 }
 
 
@@ -216,24 +198,19 @@ button:focus-visible{
 
 .point-label-visible,
 .interval-label-visible{
-
   font-family:Georgia,"Times New Roman",serif;
   font-size:1rem;
-
 }
 
 
 .quick{
-
   display:flex;
   gap:4px;
   flex-wrap:wrap;
-
 }
 
 
 .quick button{
-
   min-width:42px;
   padding:5px 8px;
   border:1px solid var(--line);
@@ -246,15 +223,12 @@ button:focus-visible{
     background .15s ease,
     border-color .15s ease,
     transform .05s ease;
-
 }
 
 
 .quick button:hover{
-
   background:#f2f4f8;
   border-color:var(--blue);
-
 }
 
 
@@ -264,16 +238,13 @@ button:focus-visible{
 
 
 .sg-input-row{
-
   display:flex;
   align-items:stretch;
   gap:8px;
-
 }
 
 
 .sg-fixed{
-
   display:flex;
   align-items:center;
   justify-content:center;
@@ -286,7 +257,6 @@ button:focus-visible{
   font-family:Georgia,"Times New Roman",serif;
   font-weight:600;
   font-size:1.05rem;
-
 }
 
 
@@ -296,29 +266,24 @@ button:focus-visible{
 
 
 .row{
-
   display:flex;
   gap:12px;
   align-items:center;
   flex-wrap:wrap;
   margin-top:8px;
-
 }
 
 
 .row label{
-
   display:inline-flex;
   gap:6px;
   align-items:center;
   font-weight:400;
   margin:0;
-
 }
 
 
 .btn{
-
   padding:8px 16px;
   border:0;
   border-radius:7px;
@@ -330,7 +295,6 @@ button:focus-visible{
   transition:
     background .15s ease,
     transform .05s ease;
-
 }
 
 
@@ -345,11 +309,9 @@ button:focus-visible{
 
 
 .err{
-
   color:var(--danger);
   font-size:.9rem;
   margin-top:6px;
-
 }
 
 
@@ -360,13 +322,11 @@ button:focus-visible{
 
 
 .mult-box{
-
   display:flex;
   align-items:center;
   gap:8px;
   font-weight:400;
   margin-top:2px;
-
 }
 
 
@@ -376,7 +336,6 @@ button:focus-visible{
 
 
 .preview-dock{
-
   position:fixed;
   left:0;
   right:0;
@@ -386,52 +345,41 @@ button:focus-visible{
   background:#ffffff;
   border-top:1px solid var(--line);
   box-shadow:0 -4px 14px rgba(0,0,0,.10);
-
 }
 
 
 .preview-dock-inner{
-
   max-width:1080px;
   margin:0 auto;
   padding:6px 16px 8px;
-
 }
 
 
 .preview-dock-title{
-
   font-size:.9rem;
   font-weight:600;
   margin-bottom:5px;
   color:var(--text);
-
 }
 
 
 .preview-scroll{
-
   overflow-x:auto;
   overflow-y:hidden;
-  min-height:120px;
+  min-height:105px;
   background:#ffffff;
-
 }
 
 
 .preview-scroll svg{
   display:block;
   margin:0 auto;
-  width:55%;
-  max-width:600px;
+  width:45%;
+  max-width:500px;
   height:auto;
   color:var(--text);
 }
 
-
-/* =========================================================
-   ADAPTACIÓN A CELULARES
-   ========================================================= */
 
 @media (max-width:600px){
 
@@ -443,7 +391,7 @@ button:focus-visible{
     padding:
       12px
       10px
-      180px;
+      175px;
     gap:12px;
   }
 
@@ -474,15 +422,16 @@ button:focus-visible{
   }
 
   .preview-scroll{
-    min-height:100px;
+    min-height:95px;
     overflow-x:hidden;
     overflow-y:hidden;
   }
 
   .preview-scroll svg{
     width:100%;
+    max-width:none;
     height:auto;
-    max-height:100px;
+    max-height:95px;
   }
 
   .row{
@@ -520,6 +469,7 @@ button:focus-visible{
 
     <div class="hint-highlight">
       Escribe solo la expresión en LaTeX, sin usar <code>$</code>.
+      Se agregará automáticamente <code>\operatorname{Sg}</code>.
       Ejemplos:
       <code>f'</code>,
       <code>g(x)</code>,
@@ -619,13 +569,42 @@ button:focus-visible{
       <code>+\infty</code>,
       <code>f'(\alpha)</code>.
       Si activas <strong>Multiplicidad par</strong>,
-      el punto se representa con dos rayitas verticales.
+      el punto se dibuja con dos rayitas verticales.
     </div>
 
     <div
       class="grid"
       id="tops"
     ></div>
+
+  </section>
+
+
+  <section>
+
+    <label for="arrowLabel">
+      Símbolo junto a la flecha
+    </label>
+
+    <div class="hint-highlight">
+      Escribe el símbolo o expresión que quieres mostrar
+      debajo de la recta, cerca de la flecha.
+      Se admite LaTeX.
+      Ejemplos:
+      <code>x</code>,
+      <code>t</code>,
+      <code>\theta</code>,
+      <code>x_1</code>.
+      Déjalo vacío si no quieres mostrar nada.
+    </div>
+
+    <input
+      type="text"
+      id="arrowLabel"
+      value="x"
+      autocomplete="off"
+      spellcheck="false"
+    >
 
   </section>
 
@@ -751,7 +730,7 @@ function prepareState(){
   if(points.length === 0){
 
     $('err').textContent =
-      'Ingresá al menos un punto.';
+      'Ingresa al menos un punto.';
 
     return false;
 
@@ -1055,6 +1034,7 @@ function buildControls(){
         render();
       };
 
+
     multLabel.appendChild(multCheck);
 
     multLabel.appendChild(
@@ -1142,10 +1122,12 @@ async function mathFragment(
         .split(/\s+/)
         .map(Number);
 
+
     const vbX = viewBox[0];
     const vbY = viewBox[1];
     const vbW = viewBox[2];
     const vbH = viewBox[3];
+
 
     if(!vbW || !vbH){
       return '';
@@ -1155,7 +1137,9 @@ async function mathFragment(
     const width =
       height * vbW / vbH;
 
+
     let drawX;
+
 
     if(align === 'right'){
       drawX = x - width;
@@ -1164,8 +1148,10 @@ async function mathFragment(
       drawX = x - width/2;
     }
 
+
     const drawY =
       y - height/2;
+
 
     const inside =
       source.innerHTML;
@@ -1190,7 +1176,12 @@ async function mathFragment(
 
   catch(e){
 
-    console.error('Error LaTeX:', tex, e);
+    console.error(
+      'Error LaTeX:',
+      tex,
+      e
+    );
+
     return '';
 
   }
@@ -1205,9 +1196,11 @@ function fullLeftExpression(){
       .value
       .trim();
 
+
   if(expr){
     return `\\operatorname{Sg}\\,${expr}`;
   }
+
 
   return '\\operatorname{Sg}';
 
@@ -1231,6 +1224,7 @@ async function render(){
 
   await MathJax.startup.promise;
 
+
   if(myVersion !== renderVersion){
     return;
   }
@@ -1239,17 +1233,22 @@ async function render(){
   const n =
     points.length;
 
+
   const U =
     175;
+
 
   const LM =
     235;
 
+
   const RM =
     95;
 
+
   const y0 =
-    95;
+    88;
+
 
   const H =
     165;
@@ -1275,9 +1274,11 @@ async function render(){
   const centers =
     [];
 
+
   centers.push(
     LM + U/2
   );
+
 
   for(let i=1; i<n; i++){
 
@@ -1286,6 +1287,7 @@ async function render(){
     );
 
   }
+
 
   centers.push(
     xs[n-1] + U/2
@@ -1345,6 +1347,26 @@ async function render(){
       marker-end="url(#arrow)"
     />
   `;
+
+
+  const arrowLabel =
+    $('arrowLabel')
+      .value
+      .trim();
+
+
+  if(arrowLabel){
+
+    svg +=
+      await mathFragment(
+        arrowLabel,
+        lineEnd - 15,
+        y0 + 28,
+        19,
+        'center'
+      );
+
+  }
 
 
   for(let i=0; i<n; i++){
@@ -1430,9 +1452,11 @@ async function render(){
     const tex =
       intervalValues[i].trim();
 
+
     if(!tex){
       continue;
     }
+
 
     svg +=
       await mathFragment(
@@ -1465,6 +1489,7 @@ async function render(){
   $('prev').innerHTML =
     svg;
 
+
   generateTikz();
 
 }
@@ -1475,17 +1500,22 @@ function generateTikz(){
   const n =
     points.length;
 
+
   if(!n){
+
     $('code').value = '';
     return;
+
   }
 
 
   const X0 =
     2;
 
+
   const DX =
     3;
+
 
   const L =
     X0 + DX*(n-1) + 2;
@@ -1501,7 +1531,9 @@ function generateTikz(){
   const centers =
     [];
 
+
   centers.push(1);
+
 
   for(let i=1; i<n; i++){
 
@@ -1510,6 +1542,7 @@ function generateTikz(){
     );
 
   }
+
 
   centers.push(
     xs[n-1] + 1
@@ -1548,6 +1581,21 @@ function generateTikz(){
   );
 
 
+  const arrowLabel =
+    $('arrowLabel')
+      .value
+      .trim();
+
+
+  if(arrowLabel){
+
+    t.push(
+      `  \\node[below=3pt,scale=0.75] at (${L-0.25},0) {$${arrowLabel}$};`
+    );
+
+  }
+
+
   for(let i=0; i<n; i++){
 
     const x =
@@ -1561,6 +1609,7 @@ function generateTikz(){
 
       const rightX =
         (x + 0.07).toFixed(2);
+
 
       t.push(
         `  \\draw (${leftX},-0.12) -- (${leftX},0.12);`,
@@ -1586,6 +1635,7 @@ function generateTikz(){
     const top =
       topValues[i].trim();
 
+
     if(top){
 
       t.push(
@@ -1602,9 +1652,11 @@ function generateTikz(){
     const tex =
       intervalValues[i].trim();
 
+
     if(!tex){
       continue;
     }
+
 
     t.push(
       `  \\node at (${centers[i]},0.5) {$${tex}$};`
@@ -1619,7 +1671,11 @@ function generateTikz(){
 
 
   if($('full').checked){
-    t.push('\\end{document}');
+
+    t.push(
+      '\\end{document}'
+    );
+
   }
 
 
@@ -1649,6 +1705,12 @@ $('leftExpr').addEventListener(
 );
 
 
+$('arrowLabel').addEventListener(
+  'input',
+  render
+);
+
+
 $('full').addEventListener(
   'change',
   generateTikz
@@ -1661,6 +1723,7 @@ async ()=>{
   const ta =
     $('code');
 
+
   try{
 
     await navigator.clipboard.writeText(
@@ -1672,7 +1735,10 @@ async ()=>{
   catch(e){
 
     ta.select();
-    document.execCommand('copy');
+
+    document.execCommand(
+      'copy'
+    );
 
   }
 
@@ -1696,6 +1762,7 @@ function note(t){
   $('dlmsg').textContent =
     t;
 
+
   setTimeout(
     ()=>{
       $('dlmsg').textContent = '';
@@ -1711,6 +1778,7 @@ function exportSvg(){
   if(!lastSvg){
     return '';
   }
+
 
   return lastSvg.svg.replace(
     /currentColor/g,
@@ -1730,14 +1798,22 @@ function save(
 
     let blob;
 
+
     if(data instanceof Blob){
-      blob = data;
+
+      blob =
+        data;
+
     }
+
     else{
-      blob = new Blob(
-        [data],
-        { type:type }
-      );
+
+      blob =
+        new Blob(
+          [data],
+          { type:type }
+        );
+
     }
 
 
@@ -1752,13 +1828,16 @@ function save(
     a.href =
       url;
 
+
     a.download =
       filename;
 
 
     document.body.appendChild(a);
 
+
     a.click();
+
 
     a.remove();
 
@@ -1771,7 +1850,9 @@ function save(
     );
 
 
-    note('Archivo descargado');
+    note(
+      'Archivo descargado'
+    );
 
   }
 
@@ -1800,6 +1881,7 @@ $('dlsvg').onclick =
     return;
 
   }
+
 
   save(
     'recta-de-signos.svg',
@@ -1841,6 +1923,7 @@ $('dlpng').onclick =
 
       canvas.width =
         lastSvg.w * scale;
+
 
       canvas.height =
         lastSvg.h * scale;
