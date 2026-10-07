@@ -1362,7 +1362,7 @@ async function render(){
         arrowLabel,
         lineEnd - 15,
         y0 + 28,
-        19,
+        14,
         'center'
       );
 
@@ -1590,7 +1590,7 @@ function generateTikz(){
   if(arrowLabel){
 
     t.push(
-      `  \\node[below=3pt,scale=0.75] at (${L-0.25},0) {$${arrowLabel}$};`
+      `  \\node[below=3pt,scale=0.55] at (${L-0.25},0) {$${arrowLabel}$};`
     );
 
   }
